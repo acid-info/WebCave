@@ -1,0 +1,21 @@
+{
+  "name": "footer",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf dist && rollup --config"
+  },
+  "dependencies": {
+    "@types/react": "^17.0.14",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "rollup": "^2.60.2",
+    "rollup-plugin-typescript2": "^0.31.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.2"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  }
+}
