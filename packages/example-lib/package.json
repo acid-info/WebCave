@@ -1,5 +1,5 @@
 {
-  "name": "footer",
+  "name": "@webcave/example-lib",
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -7,9 +7,9 @@
     "build": "rimraf dist && rollup --config"
   },
   "dependencies": {
-    "@types/react": "^17.0.14",
-    "react": "18.1.0",
-    "react-dom": "18.1.0",
+    "@types/react": "^18.2.66",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "rollup": "^2.60.2",
     "rollup-plugin-typescript2": "^0.31.1",
     "tslib": "^2.3.1",
