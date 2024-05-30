@@ -10,7 +10,8 @@
     "watch": "lerna run watch",
     "build": "lerna run build",
     "start": "lerna --scope example-client run dev",
-    "prettier": "pretty-quick"
+    "prettier": "pretty-quick",
+    "lint": "pretty-quick --check"
   },
   "devDependencies": {
     "lerna": "^8.1.3",
