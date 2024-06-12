@@ -35,7 +35,7 @@
     "importsNotUsedAsValues": "remove",
 
     /* Module Resolution */
-    "moduleResolution": "",
+    "moduleResolution": "node16",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
