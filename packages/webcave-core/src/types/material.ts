@@ -1,5 +1,20 @@
 import World from '../world'
 
+/**
+ * relative Coordinates of the texture inside the textures matrix image
+ *
+ * For example: If image containing all textures is a 16x16 Matrix.
+ * We can find the exact texture of a specific block by pointing where
+ * it's topLeft and bottomRight coordinates are by:
+ * - dividing 1 with position on the axis where max is 16 (size of the grid)
+ *
+ * Example:
+ * Top Left elements (assuming it's a square) coordinates are:
+ *  - topLeft: [0/16, 0/16]
+ *  - bottomRight: [1/16, 1/16]
+ * Which would yield: [0, 0, 0.0625, 0.0625]
+ * (The coordinates are rational numbers mapped from 0 to 1)
+ */
 type TexturePositionTuple = [x1: number, y1: number, x2: number, y2: number];
 
 type GetTexture = (params: {
