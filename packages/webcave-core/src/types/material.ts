@@ -17,6 +17,7 @@ import World from '../world'
  */
 type TexturePositionTuple = [x1: number, y1: number, x2: number, y2: number];
 
+// @TODO typings for lightmap
 type GetTexture = (params: {
   world: World,
   lightmap: any,
