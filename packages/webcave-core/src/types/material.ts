@@ -1,8 +1,18 @@
+import World from '../world'
+
 type TexturePositionTuple = [x1: number, y1: number, x2: number, y2: number];
 
-type GetTexture = (world: any, lightmap: any, lit: boolean, x: number, y: number, z: number, dir: EDirection) => TexturePositionTuple;
+type GetTexture = (params: {
+  world: World,
+  lightmap: any,
+  lit: boolean,
+  x: number,
+  y: number,
+  z: number,
+  dir: EDirection
+}) => TexturePositionTuple;
 
-enum EMaterial {
+export enum EMaterial {
   AIR = 0,
   BEDROCK = 1,
   DIRT = 2,
@@ -24,12 +34,12 @@ enum EMaterial {
   SPONGE = 18
 }
 
-type MaterialProperties = {
+export type Material = {
   id: EMaterial;
   spawnable: boolean;
   transparent: boolean;
-  selflit: boolean;
-  gravity: boolean;
-  fluid: boolean;
-  texture: GetTexture
+  selflit?: boolean;
+  gravity?: boolean;
+  fluid?: boolean;
+  texture?: GetTexture
 }
