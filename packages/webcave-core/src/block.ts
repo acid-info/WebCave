@@ -4,7 +4,7 @@ import World from './world'
 import { pushQuad } from './utils/math'
 
 class Block {
-  public fromId(id: EMaterial) {
+  public static fromId(id: EMaterial) {
     return MATERIALS[id]
   }
 
