@@ -9,7 +9,7 @@ class Block {
   }
 
   // @TODO typings for lightmap
-  public pushVertices(vertices: number[], world: World, lightmap: any, x: number, y: number, z: number ) {
+  public static pushVertices(vertices: number[], world: World, lightmap: any, x: number, y: number, z: number ) {
     let blocks = world.blocks;
     let blockLit = z >= lightmap[x][y];
     let block = blocks[x][y][z];
@@ -109,7 +109,7 @@ class Block {
     }
   }
 
-  public pushPickingVertices(vertices: number[], x: number, y: number, z: number) {
+  public static pushPickingVertices(vertices: number[], x: number, y: number, z: number) {
     let color = { r: x/255, g: y/255, b: z/255 };
 
     // Top

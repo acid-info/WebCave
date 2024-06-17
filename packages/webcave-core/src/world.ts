@@ -2,7 +2,7 @@ import Vector from './shared/vector'
 import { MATERIALS } from './material'
 import { EMaterial, Material } from './types/material'
 import Block from './block'
-import Renderer from './renderer'
+import Renderer from './render/renderer'
 
 /*
 * World container
