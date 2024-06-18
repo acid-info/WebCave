@@ -1,4 +1,4 @@
-import { WebGl, WebGLBufferWithVertices, WebGLTextureWithImage } from '../types/gl'
+import { WebGl, WebGLBufferWithVertices, WebGLObject, WebGLTextureWithImage } from '../types/gl'
 import { mat4 } from "gl-matrix"
 import World from '../world'
 import Vector from '../shared/vector'
@@ -134,11 +134,118 @@ class Renderer {
     document.getElementsByTagName( "body" )[0].appendChild( textCanvas );
   }
 
+  public draw() {
+    // Initialise view
+    this.updateViewport();
+    this.gl.viewport( 0, 0, this.gl.viewportWidth, this.gl.viewportHeight );
+    this.gl.clear( this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT );
+
+    // Draw level chunks
+    let chunks = this.chunks;
+
+    this.gl.bindTexture( this.gl.TEXTURE_2D, this.texTerrain );
+
+    if ( chunks != null ) {
+      for ( var i = 0; i < chunks.length; i++ ) {
+        if ( chunks[i].buffer != null )
+          this.drawBuffer( chunks[i].buffer );
+      }
+    }
+
+    // Draw players
+    let players = this.world.players;
+
+    this.gl.enable( this.gl.BLEND );
+
+    for ( let p in players ) {
+      let player = players[p];
+      let aniangle: number;
+
+      if(player.moving || Math.abs(player.aniframe) > 0.1) {
+        player.aniframe += 0.15;
+
+        if (player.aniframe > Math.PI) {
+          player.aniframe  = -Math.PI;
+        }
+
+        aniangle = Math.PI/2 * Math.sin(player.aniframe);
+        if (!player.moving && Math.abs(aniangle) < 0.1 ) {
+          player.aniframe = 0;
+        }
+      } else {
+        aniangle = 0;
+      }
+
+      // Draw head
+      let pitch = player.pitch;
+      if ( pitch < -0.32 ) pitch = -0.32;
+      if ( pitch > 0.32 ) pitch = 0.32;
+
+      mat4.identity( this.modelMatrix );
+      mat4.translate( this.modelMatrix, this.modelMatrix, [ player.x, player.y, player.z + 1.7 ] );
+      mat4.rotateZ( this.modelMatrix, this.modelMatrix, Math.PI - player.yaw );
+      mat4.rotateX( this.modelMatrix, this.modelMatrix, -pitch );
+      this.gl.uniformMatrix4fv( this.uModelMat, false, this.modelMatrix );
+
+      this.gl.bindTexture( this.gl.TEXTURE_2D, this.texPlayer );
+      this.drawBuffer( this.playerHead );
+
+      // Draw body
+      mat4.identity( this.modelMatrix );
+      mat4.translate( this.modelMatrix, this.modelMatrix, [ player.x, player.y, player.z + 0.01 ] );
+      mat4.rotateZ( this.modelMatrix, this.modelMatrix, Math.PI - player.yaw );
+      this.gl.uniformMatrix4fv( this.uModelMat, false, this.modelMatrix );
+      this.drawBuffer( this.playerBody );
+
+      mat4.translate( this.modelMatrix, this.modelMatrix, [ 0, 0, 1.4 ] );
+      mat4.rotateX( this.modelMatrix, this.modelMatrix, 0.75* aniangle);
+      this.gl.uniformMatrix4fv( this.uModelMat, false, this.modelMatrix );
+      this.drawBuffer( this.playerLeftArm );
+
+      mat4.rotateX( this.modelMatrix, this.modelMatrix, -1.5*aniangle);
+      this.gl.uniformMatrix4fv( this.uModelMat, false, this.modelMatrix );
+      this.drawBuffer( this.playerRightArm );
+      mat4.rotateX( this.modelMatrix, this.modelMatrix, 0.75*aniangle);
+
+      mat4.translate( this.modelMatrix, this.modelMatrix, [ 0, 0, -0.67 ] );
+
+      mat4.rotateX( this.modelMatrix, this.modelMatrix, 0.5*aniangle);
+      this.gl.uniformMatrix4fv( this.uModelMat, false, this.modelMatrix );
+      this.drawBuffer( this.playerRightLeg );
+
+      mat4.rotateX( this.modelMatrix, this.modelMatrix, -aniangle);
+      this.gl.uniformMatrix4fv( this.uModelMat, false, this.modelMatrix );
+      this.drawBuffer( this.playerLeftLeg );
+
+      // Draw player name
+      if ( !player.nametag ) {
+        player.nametag = this.buildPlayerName( player.nick );
+      }
+
+      // Calculate angle so that the nametag always faces the local player
+      let ang = -Math.PI/2 + Math.atan2( this.camPos[1] - player.y, this.camPos[0] - player.x );
+
+      mat4.identity( this.modelMatrix );
+      mat4.translate( this.modelMatrix, this.modelMatrix, [ player.x, player.y, player.z + 2.05 ] );
+      mat4.rotateZ( this.modelMatrix, this.modelMatrix, ang );
+      mat4.scale( this.modelMatrix, this.modelMatrix, [ 0.005, 1, 0.005 ] );
+      this.gl.uniformMatrix4fv( this.uModelMat, false, this.modelMatrix );
+
+      this.gl.bindTexture( this.gl.TEXTURE_2D, player.nametag.texture );
+      this.drawBuffer( player.nametag.model );
+    }
+
+    this.gl.disable( this.gl.BLEND );
+
+    mat4.identity( this.modelMatrix );
+    this.gl.uniformMatrix4fv( this.uModelMat, false, this.modelMatrix );
+  }
+
   /*
   * Returns the texture and vertex buffer for drawing the name
   * tag of the specified player.
   * */
-  public buildPlayerName(nickname: string) {
+  public buildPlayerName(nickname: string): WebGLObject {
     let gl = this.gl;
     let canvas = this.textCanvas;
     let ctx = this.textContext;

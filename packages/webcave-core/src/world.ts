@@ -32,6 +32,7 @@ class World {
   public renderer: Renderer;
 
   public localPlayer: Player;
+  public players: Player[] = [];
 
   constructor(sx: number, sy: number, sz: number) {
     this.sx = sx;

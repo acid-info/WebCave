@@ -11,6 +11,11 @@ export type WebGLBufferWithVertices = WebGLBuffer & {
   vertices?: number;
 }
 
+export type WebGLObject = {
+  texture: WebGLTexture,
+  model: WebGLBufferWithVertices
+}
+
 export type Square = {
   x: number,
   y: number,

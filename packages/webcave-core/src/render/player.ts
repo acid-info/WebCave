@@ -7,7 +7,7 @@ import { EChatActions, ACTION_TO_KEYBOARD_KEY_MAP, EKeyboardActions, EActions } 
 import { EMouseEvent } from '../types/controls'
 import { CanvasPosition } from './webgl'
 import Renderer from './renderer'
-import { Collision, DirectedLine, Rectangle, Square } from '../types/gl'
+import { Collision, DirectedLine, Rectangle, Square, WebGLObject } from '../types/gl'
 import { lineRectCollide, rectRectCollide } from '../shared/helpers'
 import { SELECTOR_WIDTH_PX } from './ui'
 
@@ -36,6 +36,18 @@ class Player {
   public lastUpdate: number;
 
   public prevSelector: HTMLTableCellElement;
+
+  public moving: boolean;
+  public aniframe: number;
+  public pitch: number;
+
+  public x: number;
+  public y: number;
+  public z: number;
+  public yaw: number;
+
+  public nametag: WebGLObject;
+  public nick: string;
 
   /*
   * Assign the local player to a world.
@@ -92,13 +104,13 @@ class Player {
   public setInputCanvas(containerRef: HTMLDivElement, canvasRef: HTMLCanvasElement) {
     this.canvas = canvasRef;
 
-    containerRef.onkeydown = (e: KeyboardEvent) => {
+    document.onkeydown = (e: KeyboardEvent) => {
       if ( (e.target as Element).tagName != "INPUT" ) {
         this.onKeyEvent( e.key, true );
       }
     }
 
-    containerRef.onkeyup = (e: KeyboardEvent) => {
+    document.onkeyup = (e: KeyboardEvent) => {
       if ( (e.target as Element).tagName != "INPUT" ) {
         this.onKeyEvent( e.key, false );
       }
