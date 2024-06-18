@@ -109,7 +109,7 @@ class Renderer {
       this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST );
       this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST );
     };
-    this.texPlayer.image.src = "minecraft/player.png";
+    this.texPlayer.image.src = "webcave/player.png";
 
     // Load terrain texture
     this.texTerrain = this.gl.createTexture();
@@ -120,7 +120,7 @@ class Renderer {
       this.gl.texParameteri( this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST );
       this.gl.texParameteri( this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST );
     };
-    this.texTerrain.image.src = "minecraft/terrain.png";
+    this.texTerrain.image.src = "webcave/terrain.png";
 
     // Create canvas used to draw name tags
     let textCanvas = this.textCanvas = document.createElement( "canvas" );
