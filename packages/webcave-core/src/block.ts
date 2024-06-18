@@ -2,6 +2,7 @@ import { MATERIALS } from './material'
 import { EMaterial } from './types/material'
 import World from './world'
 import { pushQuad } from './utils/math'
+import { EDirection } from './types/controls'
 
 class Block {
   public static fromId(id: EMaterial) {

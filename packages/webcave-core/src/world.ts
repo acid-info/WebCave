@@ -3,6 +3,7 @@ import { MATERIALS } from './material'
 import { EMaterial, Material } from './types/material'
 import Block from './block'
 import Renderer from './render/renderer'
+import Player from './render/player'
 
 /*
 * World container
@@ -30,6 +31,8 @@ class World {
   public spawnPoint: Vector;
   public renderer: Renderer;
 
+  public localPlayer: Player;
+
   constructor(sx: number, sy: number, sz: number) {
     this.sx = sx;
     this.sy = sy;
@@ -52,9 +55,9 @@ class World {
   public createFlatWorld(height: number) {
     this.spawnPoint = new Vector( this.sx / 2 + 0.5, this.sy / 2 + 0.5, height );
 
-    for ( var x = 0; x < this.sx; x++ )
-      for ( var y = 0; y < this.sy; y++ )
-        for ( var z = 0; z < this.sz; z++ )
+    for ( let x = 0; x < this.sx; x++ )
+      for ( let y = 0; y < this.sy; y++ )
+        for ( let z = 0; z < this.sz; z++ )
           this.blocks[x][y][z] = z < height ? MATERIALS[EMaterial.DIRT] : MATERIALS[EMaterial.AIR];
   }
 
@@ -113,6 +116,10 @@ class World {
           blockArray.push(String.fromCharCode(97 + this.blocks[x][y][z].id));
 
     return blockArray.join( "" );
+  }
+
+  public setLocalPlayer(player: Player) {
+    this.localPlayer = player;
   }
 }
 

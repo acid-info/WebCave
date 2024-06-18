@@ -1,5 +1,6 @@
 import { AllKeysRequired, DynamicObject } from './types/util'
 import { EMaterial, Material } from './types/material'
+import { EDirection } from './types/controls'
 
 export const MATERIALS: DynamicObject<Material, EMaterial, AllKeysRequired> = {
   [EMaterial.AIR]: {

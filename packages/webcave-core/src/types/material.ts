@@ -1,4 +1,5 @@
 import World from '../world'
+import { EDirection } from './controls'
 
 /**
  * relative Coordinates of the texture inside the textures matrix image

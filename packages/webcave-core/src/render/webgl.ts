@@ -26,6 +26,11 @@ const FRAGMENT = `
   }
 `
 
+export type CanvasPosition = {
+  x: number,
+  y: number
+}
+
 export const WEB_GL_SOURCE = {
   VERTEX,
   FRAGMENT
