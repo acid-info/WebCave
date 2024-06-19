@@ -1,11 +1,10 @@
 import React from 'react'
 import { DEFAULT_WORLD_STRING } from './WebCave.defaultWorld.ts'
 import { WebCaveGameState } from './WebCave.types.ts'
-import { Physics, Player, Renderer, World } from '@acid-info/webcave-core/src'
+import { Physics, World } from '@acid-info/webcave-core/src'
+import { Player, Renderer, SELECTOR_WIDTH_PX } from "@acid-info/webcave-client/src"
 import styled from '@emotion/styled'
 import { MouseEventHandler, useEffect, useRef, useState } from 'react'
-
-const SELECTOR_WIDTH_PX = 40;
 
 export default function WebCave() {
   const [gameState, setGameState] = useState<WebCaveGameState>()

@@ -9,7 +9,6 @@ class Block {
     return MATERIALS[id]
   }
 
-  // @TODO typings for lightmap
   public static pushVertices(vertices: number[], world: World, lightmap: any, x: number, y: number, z: number ) {
     let blocks = world.blocks;
     let blockLit = z >= lightmap[x][y];

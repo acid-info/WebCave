@@ -1,14 +1,23 @@
-import { WebGl, WebGLBufferWithVertices, WebGLObject, WebGLTextureWithImage } from '../types/gl'
+import {
+  World,
+  Vector,
+  MATERIALS,
+  EMaterial,
+  Block,
+  Chunk,
+  IRenderer,
+} from '@acid-info/webcave-core/src'
 import { mat4 } from "gl-matrix"
-import World from '../world'
-import Vector from '../shared/vector'
-import { MATERIALS } from '../material'
-import { EMaterial } from '../types/material'
-import Block from '../block'
-import { WEB_GL_SOURCE } from './webgl'
-import { Chunk } from '../types/chunk'
+import { WEB_GL_SOURCE } from './shared/webgl'
 
-class Renderer {
+import {
+  WebGl,
+  WebGLBufferWithVertices,
+  WebGLObject,
+  WebGLTextureWithImage
+} from "./types/gl"
+
+class Renderer implements IRenderer {
   public readonly canvas: HTMLCanvasElement;
   public readonly gl: WebGl;
   public program: WebGLProgram;
@@ -146,7 +155,7 @@ class Renderer {
     this.gl.bindTexture( this.gl.TEXTURE_2D, this.texTerrain );
 
     if ( chunks != null ) {
-      for ( var i = 0; i < chunks.length; i++ ) {
+      for ( let i = 0; i < chunks.length; i++ ) {
         if ( chunks[i].buffer != null )
           this.drawBuffer( chunks[i].buffer );
       }

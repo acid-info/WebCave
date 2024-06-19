@@ -6,7 +6,10 @@ export const MATERIALS: DynamicObject<Material, EMaterial, AllKeysRequired> = {
   [EMaterial.AIR]: {
     id: EMaterial.AIR,
     spawnable: false,
-    transparent: true
+    transparent: true,
+    texture: () => {
+      return [0, 0, 0, 0]
+    }
   },
   [EMaterial.BEDROCK]: {
     id: EMaterial.BEDROCK,

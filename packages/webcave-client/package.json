@@ -1,5 +1,5 @@
 {
-  "name": "@acid-info/webcave-core",
+  "name": "@acid-info/webcave-client",
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

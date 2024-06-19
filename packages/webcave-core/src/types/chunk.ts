@@ -2,7 +2,7 @@ export type Chunk = {
   start: ChunkSize,
   end: ChunkSize,
   dirty: boolean,
-  buffer?: WebGLBuffer
+  buffer?: any
 }
 
 export type ChunkSize = [

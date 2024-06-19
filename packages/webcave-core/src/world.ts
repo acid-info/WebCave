@@ -2,8 +2,10 @@ import Vector from './shared/vector'
 import { MATERIALS } from './material'
 import { EMaterial, Material } from './types/material'
 import Block from './block'
-import Renderer from './render/renderer'
-import Player from './render/player'
+import {
+  IRenderer as Renderer,
+  IPlayer as Player
+} from "./types/game"
 
 /*
 * World container
@@ -109,7 +111,7 @@ class World {
   * Returns a string representation of this world.
   * */
   public toNetworkString() {
-    let blockArray = [];
+    let blockArray: string[] = [];
 
     for ( let x = 0; x < this.sx; x++ )
       for ( let y = 0; y < this.sy; y++ )

@@ -1,17 +1,30 @@
-import World from '../world'
-import Vector from '../shared/vector'
-import { EMaterial, Material } from '../types/material'
-import { MATERIALS } from '../material'
-import { DynamicObject } from '../types/util'
-import { EChatActions, ACTION_TO_KEYBOARD_KEY_MAP, EKeyboardActions, EActions } from './controls'
-import { EMouseEvent } from '../types/controls'
-import { CanvasPosition } from './webgl'
-import Renderer from './renderer'
-import { Collision, DirectedLine, Rectangle, Square, WebGLObject } from '../types/gl'
-import { lineRectCollide, rectRectCollide } from '../shared/helpers'
-import { SELECTOR_WIDTH_PX } from './ui'
+import {
+  World,
+  Vector,
+  EMaterial,
+  Material,
+  MATERIALS,
+  EMouseEvent,
+  lineRectCollide,
+  rectRectCollide,
+  IPlayer,
+  Collision,
+  DirectedLine,
+  Rectangle,
+  Square,
+} from "@acid-info/webcave-core/src"
 
-class Player {
+import { EChatActions, ACTION_TO_KEYBOARD_KEY_MAP, EKeyboardActions, EActions } from './shared/controls'
+import { CanvasPosition } from './shared/webgl'
+import Renderer from './renderer'
+import { SELECTOR_WIDTH_PX } from './shared/ui'
+import { DynamicObject } from './types/util'
+
+import {
+  WebGLObject,
+} from "./types/gl"
+
+class Player implements IPlayer {
   public world: World;
 
   public canvas: HTMLCanvasElement;
@@ -81,7 +94,7 @@ class Player {
         selector.onclick = () => {
           selector.style.opacity = "1.0";
 
-          this.prevSelector.style.opacity = null;
+          this.prevSelector.style.opacity = "";
           this.prevSelector = selector;
 
           this.buildMaterial = MATERIALS[mat];

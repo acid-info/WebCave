@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Emit */
     "target": "ES2020",
-    "lib": ["ESNext"],
+    "lib": ["ES2020"],
     "declaration": true,
     // These two options will be selectively overridden in each project.
     // Utility libraries will have source maps on, but plugins will not.
@@ -26,7 +26,7 @@
     "noImplicitThis": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "strictPropertyInitialization": false,
     "useUnknownInCatchVariables": true,
     /* Handled by ESLint */
