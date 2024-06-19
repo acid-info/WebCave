@@ -9,7 +9,7 @@
   "scripts": {
     "watch": "lerna run watch",
     "build": "lerna run build",
-    "dev": "lerna --scope @acid-info/webcave-example-client run dev",
+    "dev": "lerna --scope @acid-info/webcave-example-frontend run dev",
     "prettier": "pretty-quick",
     "lint": "pretty-quick --check"
   },

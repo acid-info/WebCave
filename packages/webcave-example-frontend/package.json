@@ -1,5 +1,5 @@
 {
-  "name": "@acid-info/webcave-example-client",
+  "name": "@acid-info/webcave-example-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
