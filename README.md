@@ -46,3 +46,9 @@ To run the project, you'll need:
 | Build   | ```yarn build```                      | Builds all the packages inside the project |
 | Linting | ```yarn lint```                       | Lints the project using `pretty-quick`     |
 | Running | ```yarn dev```              | Runs the project in development mode       |
+
+<br/>
+<img align="left" alt="acid-info-logo" width="100" height="100" src="./github/assets/acid.png">
+
+### Made with ❤
+by [acid.info](https://acid.info/)
