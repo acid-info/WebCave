@@ -6,4 +6,4 @@ export {
   Player
 }
 
-export { SELECTOR_WIDTH_PX } from "./shared/ui"
+export { DEFAULT_SELECTOR_WIDTH_PX } from "./shared/ui"

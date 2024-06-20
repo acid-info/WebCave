@@ -1,14 +1,13 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
     "declaration": true,
-    "allowSyntheticDefaultImports": true
+    "lib": ["DOM", "DOM.Iterable"],
+    "types": ["node"],
+    "module": "ES2020",
+    "moduleResolution": "NodeNext"
   },
   "files": [],
   "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.lib.json"
-    }
-  ]
 }

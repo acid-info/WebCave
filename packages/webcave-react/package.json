@@ -1,0 +1,21 @@
+{
+  "name": "@acid-info/webcave-react",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf dist && rollup --config"
+  },
+  "dependencies": {
+    "@types/react": "^18.2.66",
+    "rollup": "^2.60.2",
+    "rollup-plugin-typescript2": "^0.31.1",
+    "tslib": "^2.3.1",
+    "typescript": "^5.4.5",
+    "@acid-info/webcave-core": "*",
+    "@acid-info/webcave-client": "*"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  }
+}

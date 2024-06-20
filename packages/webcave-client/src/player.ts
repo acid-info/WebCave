@@ -17,7 +17,7 @@ import {
 import { EChatActions, ACTION_TO_KEYBOARD_KEY_MAP, EKeyboardActions, EActions } from './shared/controls'
 import { CanvasPosition } from './shared/webgl'
 import Renderer from './renderer'
-import { SELECTOR_WIDTH_PX } from './shared/ui'
+import { DEFAULT_SELECTOR_WIDTH_PX } from './shared/ui'
 import { DynamicObject } from './types/util'
 
 import {
@@ -77,19 +77,18 @@ class Player implements IPlayer {
     this.eventHandlers = {};
   }
 
-  public setMaterialSelector(selectorContainerRef: HTMLDivElement) {
+  public setMaterialSelector(selectorContainerRef: HTMLDivElement, selectorElementWidthPx: number) {
     let tableRow = selectorContainerRef.getElementsByTagName( "tr" )[0];
 
     let texOffset = 0;
     let numberOfElements = 16;
-    let widthOfElement = SELECTOR_WIDTH_PX;
     tableRow.innerHTML = '';
 
     for ( let mat in MATERIALS ) {
       if (MATERIALS[mat].spawnable == true ) {
         let selector = document.createElement( "td" );
         selector.style.backgroundPosition = texOffset + "px 0px";
-        selector.style.backgroundSize = `${widthOfElement * numberOfElements}px ${widthOfElement}px`
+        selector.style.backgroundSize = `${selectorElementWidthPx * numberOfElements}px ${selectorElementWidthPx}px`
 
         selector.onclick = () => {
           selector.style.opacity = "1.0";
@@ -106,7 +105,7 @@ class Player implements IPlayer {
         }
 
         tableRow.appendChild( selector );
-        texOffset -= SELECTOR_WIDTH_PX;
+        texOffset -= DEFAULT_SELECTOR_WIDTH_PX;
       }
     }
   }

@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './App.css'
-import { WebCave } from './WebCave/index.js'
+import { WebCave } from '@acid-info/webcave-react/src'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <WebCave/>
+      <WebCave
+        chunkSize={8}
+        worldSize={16}
+      />
     </>
   )
 }
