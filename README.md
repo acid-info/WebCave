@@ -7,18 +7,23 @@ WebCave in your project or simply spinning up your own client
 and server
 
 ### Projects
+
 **webcave-core**  
 Contains all the core game business logic
+
 ---
-**webcave-client**  
+**webcave-client**    
 Client implementation for any JS/TS frontend
+
 ---
 **webcave-react**  
 React wrapper for **webcave-client** package
+
 ---
 **webcave-example-frontend**  
 Example React/Vite/Typescript project showcasing how to run the
 game
+
 ---
 
 ## Running the project ⊂(◉‿◉)つ
