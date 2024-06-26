@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 
 export const Body = styled.div`
-  height: 360px;
+  height: 560px;
   width: 100%;
   background: url('/webcave/background.png');
   position: relative;
