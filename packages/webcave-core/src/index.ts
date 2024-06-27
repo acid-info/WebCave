@@ -14,6 +14,7 @@ export * from "./types/controls"
 export * from "./types/material"
 export * from "./types/chunk"
 export * from "./types/gl"
+export * from "./types/multiplayer"
 
 export * from "./shared/helpers"
 export { default as Vector } from "./shared/vector"

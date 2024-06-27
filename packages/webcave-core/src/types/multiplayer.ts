@@ -40,7 +40,11 @@ export type SocketServerEvents =
 
   // Tell client about other players
   // C <- S
-  "join";
+  "join" |
+
+  // Tell client a player left
+  // C <- S
+  "leave";
 
 export type SocketEvents = SocketClientEvents | SocketServerEvents;
 
@@ -55,9 +59,10 @@ export type PayloadBySocketEvent<E> =
   E extends "world" ? WorldPayload :
   E extends "spawn" ? SpawnPayload :
   E extends "join" ? JoinPayload :
+  E extends "leave" ? LeavePayload :
   never;
 
-export type SocketEventPayloadMap<E = SocketEvents> = {
+export type SocketEmitterPayloadMap<E extends string | number | symbol = SocketEvents> = {
   [K in E]: (p: PayloadBySocketEvent<K>) => void;
 }
 
@@ -73,6 +78,7 @@ type ChatPayload = {
 }
 
 type UpdatePlayerPositionPayload = {
+  nick?: string;
   x: number;
   y: number;
   z: number;
@@ -86,6 +92,7 @@ type NicknamePayload = {
 
 type MessagePayload = {
   type: "generic" | "chat";
+  user?: string;
   msg: string;
 }
 
@@ -119,4 +126,8 @@ type JoinPayload = {
   z: number;
   pitch: number;
   yaw: number;
+}
+
+type LeavePayload = {
+  nick: string;
 }
