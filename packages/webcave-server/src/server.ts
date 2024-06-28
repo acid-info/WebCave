@@ -34,14 +34,20 @@ class WebCaveServer {
 
   public world: World;
 
-  constructor(io: Server, slots: number) {
+  constructor(io: Server, slots: number, oneUserPerIp: boolean) {
     this.io = io;
-    this.io.sockets.on( "connection", this.onConnection);
-
     this.maxSlots = slots;
     this.usedSlots = 0;
-    this.oneUserPerIp = false;
+    this.oneUserPerIp = oneUserPerIp;
     this.eventHandlers = {};
+    this.activeAddresses = {};
+    this.activeNicknames = {};
+  }
+
+  public initSocketHandlers() {
+    this.io.sockets.on( "connection", (socket) => {
+      this.onConnection(socket)
+    });
   }
 
   public setWorld(world: World) {
@@ -84,8 +90,9 @@ class WebCaveServer {
     const ipAddress = getIp(socket, Config.IS_BEHIND_PROXY)
     logger.info(`Client ${ipAddress} was kicked ( ${msg} ).`)
 
-    if ( socket.data._nickname != null )
+    if (socket.data._nickname) {
       this.sendMessage( socket.data._nickname + ` was kicked ( ${msg} ).` );
+    }
 
     socket.emit( "kick", { msg });
     socket.disconnect();
@@ -136,7 +143,7 @@ class WebCaveServer {
     }
 
     // Prevent people from changing their username
-    if ( socket.data._nickname === null ) {
+    if (!socket.data._nickname) {
       let nickname = sanitiseInput( data.nickname );
 
       for (let n in this.activeNicknames ) {
@@ -239,7 +246,7 @@ class WebCaveServer {
     }
 
     // Check if the user has authenticated themselves before allowing them to set blocks
-    if (socket.data._nickname != null) {
+    if (socket.data._nickname) {
       try {
         this.world.setBlock( data.x, data.y, data.z, material);
 
@@ -278,7 +285,7 @@ class WebCaveServer {
     let msg = sanitiseInput( data.msg );
 
     // Check if the user has authenticated themselves before allowing them to send messages
-    if ( socket.data._nickname != null  ) {
+    if (socket.data._nickname) {
       logger.log( `< ${socket.data._nickname} > ` + msg);
 
       let callback = false;
@@ -310,7 +317,7 @@ class WebCaveServer {
     }
 
     // Check if the user has authenticated themselves before allowing them to send updates
-    if (socket.data._nickname != null) {
+    if (socket.data._nickname) {
       let pl = this.world.players[socket.data._nickname];
       pl.x = data.x;
       pl.y = data.y;
@@ -352,7 +359,7 @@ class WebCaveServer {
     this.usedSlots--;
     delete this.activeAddresses[getIp(socket)];
 
-    if (socket.data._nickname != null) {
+    if (socket.data._nickname) {
       delete this.activeNicknames[socket.data._nickname];
       delete this.world.players[socket.data._nickname];
 

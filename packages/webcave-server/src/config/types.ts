@@ -8,4 +8,5 @@ export type AppConfig = {
   ADMIN_IP: string
   ONE_USER_PER_IP: boolean
   IS_BEHIND_PROXY: boolean
+  WORLD_FILE_NAME: string
 }

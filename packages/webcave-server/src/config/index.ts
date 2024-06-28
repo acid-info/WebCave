@@ -12,7 +12,8 @@ const {
   SECONDS_BETWEEN_SAVES,
   ADMIN_IP,
   ONE_USER_PER_IP,
-  IS_BEHIND_PROXY
+  IS_BEHIND_PROXY,
+  WORLD_FILE_NAME
 } = process.env;
 
 if (!WORLD_SX || !WORLD_SY || !WORLD_SZ || !WORLD_GROUNDHEIGHT) {
@@ -24,6 +25,9 @@ if (!SECONDS_BETWEEN_SAVES || !ONE_USER_PER_IP) {
 if (!MAX_PLAYERS) {
   throw new Error("Please provide the maximum number of players");
 }
+if (!WORLD_FILE_NAME) {
+  throw new Error("Please provide file name for saving the world");
+}
 
 const Config: AppConfig = {
   MAX_PLAYERS: parseInt(MAX_PLAYERS),
@@ -34,7 +38,8 @@ const Config: AppConfig = {
   SECONDS_BETWEEN_SAVES: parseInt(SECONDS_BETWEEN_SAVES),
   ADMIN_IP,
   ONE_USER_PER_IP: ONE_USER_PER_IP === "true",
-  IS_BEHIND_PROXY: IS_BEHIND_PROXY === "true"
+  IS_BEHIND_PROXY: IS_BEHIND_PROXY === "true",
+  WORLD_FILE_NAME
 }
 
 export default Config;
