@@ -2,7 +2,7 @@ import { EMaterial } from './material.ts'
 
 export type SocketClientEvents =
   // Networked block update
-  // C <-> S
+  // C -> S
   "setblock" |
 
   // Send a chat message
@@ -18,7 +18,7 @@ export type SocketClientEvents =
   "nickname" |
 
   // Broadcast message
-  // C -> S -> C
+  // C -> S
   "msg";
 
 export type SocketServerEvents =
@@ -44,7 +44,15 @@ export type SocketServerEvents =
 
   // Tell client a player left
   // C <- S
-  "leave";
+  "leave" |
+
+  // Broadcast message
+  // C <- S
+  "msg" |
+
+  // Networked block update
+  // C <- S
+  "setblock"
 
 export type SocketEvents = SocketClientEvents | SocketServerEvents;
 

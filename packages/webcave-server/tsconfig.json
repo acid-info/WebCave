@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declaration": true,
+    "lib": ["ES2020"],
+    "types": ["node"],
+    "module": "ES2020",
+    "moduleResolution": "NodeNext"
+  },
+  "files": [],
+  "include": [],
+}

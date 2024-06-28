@@ -7,6 +7,7 @@ export interface IRenderer {
 }
 
 export interface IPlayer {
+  socket?: any;
   moving: boolean;
   aniframe: number;
   pitch: number;
@@ -19,4 +20,6 @@ export interface IPlayer {
   pos: Vector;
   angles: number[];
   velocity: Vector;
+  blocks?: number;
+  lastBlockCheck?: number;
 }
