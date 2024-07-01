@@ -69,7 +69,7 @@ class WebCaveServer {
       })
     } else {
       this.io.sockets.emit("msg", {
-        type: "chat",
+        type: "generic",
         msg
       })
     }
