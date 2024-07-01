@@ -1,15 +1,15 @@
 import React from 'react'
 import { DEFAULT_WORLD_STRING } from './WebCave.defaultWorld.ts'
 import { WebCaveGameState, WebCaveProps } from './WebCave.types.ts'
-import { Physics, World } from '@acid-info/webcave-core/src'
-import { DEFAULT_SELECTOR_WIDTH_PX, Player, Renderer } from '@acid-info/webcave-client/src'
+import { Physics, World } from '@acid-info/webcave-core/src/index.ts'
+import { DEFAULT_SELECTOR_WIDTH_PX, Player, Renderer } from '@acid-info/webcave-client/src/index.ts'
 import { MouseEventHandler, useEffect, useRef, useState } from 'react'
 import {
   Body,
   Canvas,
   ItemsSelectorTableContainer,
   ItemsSelectorTable
-} from "./WebCave.styles.ts"
+} from "../styles/WebCave.styles.ts"
 
 const WebCave: React.FC<WebCaveProps> = (props) => {
   const {
@@ -47,11 +47,6 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
       physics,
       player,
     })
-  }
-
-  const takeDrugs = () => {
-    gameState?.renderer.setPerspective(40, 0.01, 200)
-    gameState?.renderer.draw()
   }
 
   const renderWorld = () => {
