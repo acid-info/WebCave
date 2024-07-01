@@ -10,7 +10,6 @@ import {
 } from '@acid-info/webcave-core/src'
 import { World } from '@acid-info/webcave-core/src'
 
-
 class MultiplayerClient {
   public socket: Socket<
     SocketEmitterPayloadMap<SocketServerEvents | SocketClientEvents>,

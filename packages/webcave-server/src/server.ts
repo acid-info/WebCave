@@ -153,7 +153,7 @@ class WebCaveServer {
         }
       }
 
-      logger.log( `Client ${getIp(socket)} is now known as ${nickname}.`);
+      logger.info( `Client ${getIp(socket)} is now known as ${nickname}.`);
       if ( this.eventHandlers["join"] ) {
         this.eventHandlers.join(socket, nickname);
       }
@@ -354,7 +354,7 @@ class WebCaveServer {
   }
 
   public onDisconnect(socket: GameSocket) {
-    logger.log( `Client ${getIp(socket)} disconnected.` );
+    logger.info( `Client ${getIp(socket)} disconnected.` );
 
     this.usedSlots--;
     delete this.activeAddresses[getIp(socket)];

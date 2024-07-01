@@ -1,3 +1,5 @@
+import { CorsOptions } from 'cors'
+
 export type AppConfig = {
   MAX_PLAYERS: number
   WORLD_SX: number
@@ -9,4 +11,5 @@ export type AppConfig = {
   ONE_USER_PER_IP: boolean
   IS_BEHIND_PROXY: boolean
   WORLD_FILE_NAME: string
+  CORS_POLICY: CorsOptions
 }
