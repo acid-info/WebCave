@@ -7,13 +7,14 @@
     "build": "rimraf dist && rollup --config"
   },
   "dependencies": {
+    "@acid-info/webcave-client": "*",
+    "@acid-info/webcave-core": "*",
     "@types/react": "^18.2.66",
     "rollup": "^2.60.2",
     "rollup-plugin-typescript2": "^0.31.1",
+    "socket.io-client": "^4.7.5",
     "tslib": "^2.3.1",
-    "typescript": "^5.4.5",
-    "@acid-info/webcave-core": "*",
-    "@acid-info/webcave-client": "*"
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
     "rimraf": "^3.0.2"

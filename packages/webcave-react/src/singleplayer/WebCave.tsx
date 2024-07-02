@@ -20,8 +20,8 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
   } = props;
 
   const [gameState, setGameState] = useState<WebCaveGameState>()
-  const webCaveRenderSurface = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null)
+  const webCaveRenderSurface = useRef<HTMLCanvasElement>(null);
   const materialSelectorRef = useRef<HTMLTableElement>(null)
 
   const initWorldState = () => {
@@ -55,7 +55,7 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
 
       physics.simulate()
       player.update()
-      renderer.buildChunks(1)
+      renderer.buildChunks(chunkSize)
       renderer.setCamera(player.getEyePos().toArray(), player.angles)
       renderer.draw()
     }

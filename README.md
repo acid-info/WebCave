@@ -41,11 +41,14 @@ To run the project, you'll need:
 3. Run ```yarn``` to install the dependencies
 
 ### Commands ¯\(°_o)/¯
-| Name    | Command                               | Description                                |
-|---------|---------------------------------------|--------------------------------------------|
-| Build   | ```yarn build```                      | Builds all the packages inside the project |
-| Linting | ```yarn lint```                       | Lints the project using `pretty-quick`     |
-| Running | ```yarn dev```              | Runs the project in development mode       |
+| Name                 | Command               | Description                                                                             |
+|----------------------|-----------------------|-----------------------------------------------------------------------------------------|
+| Build                | ```yarn build```      | Builds all the packages inside the project                                              |
+| Linting              | ```yarn lint```       | Lints the project using `pretty-quick`                                                  |
+| Running Singleplayer | ```yarn dev```        | Runs the project (only client) in development mode                                      |
+| Running Multiplayer  | ```yarn dev:mp```     | Runs the client and server in development mode allowing for Multiplayer in unified flow |
+| Run the Client       | ```yarn dev:client``` | Runs the example frontend in dev mode                                                   |
+| Run the Server       | ```yarn dev:server``` | Runs the game server in dev mode                                                        |
 
 <br/>
 <img align="left" alt="acid-info-logo" width="100" height="100" src="./github/assets/acid.png">

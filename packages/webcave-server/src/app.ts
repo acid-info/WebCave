@@ -32,7 +32,7 @@ function app(socketServer: SocketServer, httpServer: Server): { world: World, we
   const world = initWorld()
 
   const webCaveServer = new WebCaveServer(socketServer, Config.MAX_PLAYERS, Config.ONE_USER_PER_IP)
-  httpServer.listen(3000, function() {});
+  httpServer.listen(Config.PORT, function() {});
   webCaveServer.initSocketHandlers();
   webCaveServer.setWorld(world)
 

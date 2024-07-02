@@ -1,6 +1,7 @@
 import { CorsOptions } from 'cors'
 
 export type AppConfig = {
+  PORT: number
   MAX_PLAYERS: number
   WORLD_SX: number
   WORLD_SY: number

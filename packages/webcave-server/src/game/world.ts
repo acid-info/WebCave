@@ -1,6 +1,7 @@
 import { Vector, World } from '@acid-info/webcave-core/src'
 import FileUtil from '../utils/file.ts'
 import path from 'node:path'
+import logger from '../utils/logger.ts'
 
 class ServerWorld extends World {
   constructor(sx: number, sy: number, sz: number) {
@@ -16,16 +17,17 @@ class ServerWorld extends World {
       const path = this.getWorldFilePath(filename);
       const data = FileUtil.readFileSync(path).toString('utf8');
 
-      const [, , , world] = data.split(',');
-      this.createFromString(world);
+      const [spawnX, spawnY, spawnZ] = data.split(',');
+      this.createFromString(data);
       this.spawnPoint = new Vector(
-        parseInt(data[0]),
-        parseInt(data[1]),
-        parseInt(data[2])
+        parseInt(spawnX),
+        parseInt(spawnY),
+        parseInt(spawnZ)
       );
 
       return true;
     } catch ( e ) {
+      logger.error(e)
       return false;
     }
   }

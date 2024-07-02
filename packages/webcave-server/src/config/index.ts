@@ -4,6 +4,7 @@ import { AppConfig } from "./types.ts";
 dotenv.config();
 
 const {
+  PORT,
   MAX_PLAYERS,
   WORLD_SX,
   WORLD_SY,
@@ -16,6 +17,10 @@ const {
   WORLD_FILE_NAME,
   CLIENT_ORIGIN_URL
 } = process.env;
+
+if (!PORT) {
+  throw new Error("Please provide PORT where server will be hosted")
+}
 
 if (!WORLD_SX || !WORLD_SY || !WORLD_SZ || !WORLD_GROUNDHEIGHT) {
   throw new Error("Please provide all 'World' related parameters in the environment configuration");
@@ -34,6 +39,7 @@ if (!CLIENT_ORIGIN_URL) {
 }
 
 const Config: AppConfig = {
+  PORT: parseInt(PORT),
   MAX_PLAYERS: parseInt(MAX_PLAYERS),
   WORLD_SX: parseInt(WORLD_SX),
   WORLD_SY: parseInt(WORLD_SY),
