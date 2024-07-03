@@ -22,4 +22,6 @@ export interface IPlayer {
   velocity: Vector;
   blocks?: number;
   lastBlockCheck?: number;
+  update(): void;
+  getEyePos(): Vector;
 }

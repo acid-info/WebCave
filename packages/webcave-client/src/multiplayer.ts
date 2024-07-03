@@ -34,17 +34,17 @@ class MultiplayerClient {
 
     this.nickname = nickname;
 
-    this.socket.on( "connect", this.onConnection);
-    this.socket.on( "disconnect", this.onDisconnection);
-    this.socket.on( "world", this.onWorld);
-    this.socket.on( "spawn", this.onSpawn);
-    this.socket.on( "setblock", this.onBlockUpdate);
-    this.socket.on( "msg", this.onMessage);
-    this.socket.on( "kick", this.onKick);
-    this.socket.on( "join", this.onPlayerJoin);
-    this.socket.on( "leave", this.onPlayerLeave);
-    this.socket.on( "player", this.onPlayerUpdate);
-    this.socket.on( "setpos", this.onPlayerSetPos);
+    this.socket.on( "connect", this.onConnection.bind(this));
+    this.socket.on( "disconnect", this.onDisconnection.bind(this));
+    this.socket.on( "world", this.onWorld.bind(this));
+    this.socket.on( "spawn", this.onSpawn.bind(this));
+    this.socket.on( "setblock", this.onBlockUpdate.bind(this));
+    this.socket.on( "msg", this.onMessage.bind(this));
+    this.socket.on( "kick", this.onKick.bind(this));
+    this.socket.on( "join", this.onPlayerJoin.bind(this));
+    this.socket.on( "leave", this.onPlayerLeave.bind(this));
+    this.socket.on( "player", this.onPlayerUpdate.bind(this));
+    this.socket.on( "setpos", this.onPlayerSetPos.bind(this));
   }
 
   public setBlock(x: number,y: number,z: number, mat ) {
@@ -99,7 +99,8 @@ class MultiplayerClient {
   public onWorld(data: PayloadBySocketEvent<"world">) {
     // Create world from string representation
     this.world = new World(data.sx, data.sy, data.sz);
-    this.world.createFromString(data.blocks);
+    const worldString = `${data.sx},${data.sy},${data.sz},${data.blocks}`
+    this.world.createFromString(worldString);
 
     if ( this.eventHandlers.world ) {
       this.eventHandlers.world(this.world);

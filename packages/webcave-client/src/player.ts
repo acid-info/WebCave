@@ -23,9 +23,11 @@ import { DynamicObject } from './types/util'
 import {
   WebGLObject,
 } from "./types/gl"
+import MultiplayerClient from './multiplayer.ts'
 
 class Player implements IPlayer {
   public world: World;
+  public client: MultiplayerClient;
 
   public canvas: HTMLCanvasElement;
   public renderer: Renderer;
@@ -163,6 +165,10 @@ class Player implements IPlayer {
     this.renderer = renderer;
   }
 
+  public setClient(mc: MultiplayerClient) {
+    this.client = mc;
+  }
+
   public on(event: EActions, callback: Function) {
     this.eventHandlers[event] = callback;
   }
@@ -206,6 +212,7 @@ class Player implements IPlayer {
       Math.floor( this.pos.y ),
       Math.floor( this.pos.z )
     );
+
     let block = this.renderer.pickAt(
       new Vector( bPos.x - 4, bPos.y - 4, bPos.z - 4 ),
       new Vector( bPos.x + 4, bPos.y + 4, bPos.z + 4 ),
@@ -214,10 +221,12 @@ class Player implements IPlayer {
     );
 
     if ( block != false ) {
+      const blockSetter = this.client ? this.client : this.world;
+
       if ( destroy ) {
-        this.world.setBlock(block.x, block.y, block.z, MATERIALS[EMaterial.AIR] );
+        blockSetter.setBlock(block.x, block.y, block.z, MATERIALS[EMaterial.AIR] );
       } else {
-        this.world.setBlock( block.x + block.n.x, block.y + block.n.y, block.z + block.n.z, this.buildMaterial );
+        blockSetter.setBlock( block.x + block.n.x, block.y + block.n.y, block.z + block.n.z, this.buildMaterial );
       }
     }
   }

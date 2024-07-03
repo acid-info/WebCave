@@ -138,7 +138,7 @@ class WebCaveServer {
   }
 
   public onNickname(socket: GameSocket, data: PayloadBySocketEvent<"nickname">): boolean {
-    if ( data.nickname.length == 0 || data.nickname.length > 15 ) {
+    if ( data.nickname.length == 0 || data.nickname.length > 10 ) {
       return false;
     }
 
@@ -278,7 +278,7 @@ class WebCaveServer {
   }
 
   public onChatMessage(socket: GameSocket, data: PayloadBySocketEvent<"chat">) {
-    if ( typeof( data.msg ) != "string" || data.msg.trim().length == 0 || data.msg.length > 100 ) {
+    if ( typeof( data.msg ) != "string" || data.msg.trim().length == 0 || data.msg.length > 60 ) {
       return false;
     }
 
