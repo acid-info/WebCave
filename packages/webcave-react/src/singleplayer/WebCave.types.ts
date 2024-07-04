@@ -11,7 +11,6 @@ import {
 export type WebCaveGameState = {
   world: World
   renderer: Renderer
-  physics: Physics
   player: Player
 }
 

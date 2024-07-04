@@ -32,6 +32,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
   const [nickname, setNickname] = useState<string>();
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const textCanvasRef = useRef<HTMLCanvasElement>(null)
   const webCaveRenderSurface = useRef<HTMLCanvasElement>(null);
   const materialSelectorRef = useRef<HTMLTableElement>(null);
   const chatBoxInputRef = useRef<HTMLInputElement>(null);
@@ -39,16 +40,18 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
 
   useEffect(() => {
     nicknameInputRef.current.focus();
-    setRenderer(new Renderer(webCaveRenderSurface.current))
-
-    return () => {
-      client.socket.disconnect();
-    }
+    setRenderer(new Renderer(webCaveRenderSurface.current, textCanvasRef.current))
   }, []);
 
   useEffect(() => {
     if (client && !client.socket) {
       joinGame()
+    }
+
+    return () => {
+      if (client && client.socket) {
+        client.socket.disconnect();
+      }
     }
   }, [client])
 
@@ -61,7 +64,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
         const currentTime = +new Date / 1000;
         renderWorld(lastUpdate); // Update local
 
-        if (currentTime - lastUpdate > 0.033) {
+        if (currentTime - lastUpdate > 0.033 && !renderer.shouldSkipRender()) {
           client.updatePlayer()
           lastUpdate = currentTime;
         }
@@ -78,8 +81,17 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
   const renderWorld = (lastUpdate: number) => {
     if (client) {
       const player = client.world.localPlayer
+
+      if (renderer.shouldSkipRender()) {
+        return;
+      }
+
+      if (renderer.lastRenderSkipped) {
+        player.lastUpdate = null;
+      }
+
       player.update()
-      renderer.buildChunks(chunkSize)
+      renderer.buildChunks(chunkSize, renderer.lastRenderSkipped)
       renderer.setCamera(player.getEyePos().toArray(), player.angles)
       renderer.draw()
     }
@@ -159,6 +171,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     player.setInputCanvas(containerRef.current, webCaveRenderSurface.current)
     player.setMaterialSelector(materialSelectorRef.current, selectorWidthPx)
     setIsReady(true)
+    setStatusMessage(undefined)
 
     player.on(EChatActions.OPEN_CHAT, () => {
       setIsChatOpen(true)
@@ -171,14 +184,14 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
       ref={containerRef}
       onContextMenu={onContextMenu}
     >
-      <Canvas ref={webCaveRenderSurface}/>
+      <Canvas ref={webCaveRenderSurface} />
       <ItemsSelectorTableContainer selectorWidthPx={selectorWidthPx}>
         <ItemsSelectorTable
           ref={materialSelectorRef}
           selectorWidthPx={selectorWidthPx}
         >
           <tbody>
-            <tr></tr>
+          <tr></tr>
           </tbody>
         </ItemsSelectorTable>
       </ItemsSelectorTableContainer>
@@ -188,13 +201,13 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
           <ChatBoxText>
             {messages.map((m, index) => (
               <span key={`${m}-${index}`}>
-              { m.user &&
+              {m.user &&
                 <>
-                  {"<"}
+                  {'<'}
                   <span style={{ color: '#0a0' }}>
                     {m.user}
                   </span>
-                  {"> "}
+                  {'> '}
                 </>
               }
                 {m.msg}
@@ -234,8 +247,10 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
       <button onClick={() => setIsChatOpen(prev => !prev)}>
         toggle chat
       </button>
+
+      <canvas ref={textCanvasRef} />
     </Body>
   );
 }
 
-export default WebCaveMultiplayer;
+export default WebCaveMultiplayer

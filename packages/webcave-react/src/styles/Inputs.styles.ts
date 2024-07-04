@@ -5,6 +5,8 @@ export const ChatContainer = styled.div<{isChatOpen: boolean}>`
     left: 20px;
     bottom: 18px;
     opacity: ${props => props.isChatOpen ? '1' : '0'};
+    height: ${props => props.isChatOpen ? 'initial' : '0'};
+    overflow: hidden;
 `
 
 export const ChatBox = styled.div`

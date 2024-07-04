@@ -21,6 +21,7 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
 
   const [gameState, setGameState] = useState<WebCaveGameState>()
   const containerRef = useRef<HTMLDivElement>(null)
+  const textCanvasRef = useRef<HTMLCanvasElement>(null)
   const webCaveRenderSurface = useRef<HTMLCanvasElement>(null);
   const materialSelectorRef = useRef<HTMLTableElement>(null)
 
@@ -28,12 +29,9 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
     const world = new World(worldSize, worldSize, worldSize)
     world.createFromString(worldString)
 
-    const renderer = new Renderer(webCaveRenderSurface.current!)
+    const renderer = new Renderer(webCaveRenderSurface.current, textCanvasRef.current)
     renderer.setWorld(world, chunkSize)
     renderer.setPerspective(70, 0.01, 200)
-
-    const physics = new Physics()
-    physics.setWorld(world)
 
     const player = new Player()
     player.setWorld(world)
@@ -44,18 +42,25 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
     setGameState({
       world,
       renderer,
-      physics,
       player,
     })
   }
 
   const renderWorld = () => {
     if (gameState) {
-      const { physics, player, renderer } = gameState
+      const { player, renderer } = gameState
 
-      physics.simulate()
+      if (renderer.shouldSkipRender()) {
+        return;
+      }
+
+      if (renderer.lastRenderSkipped) {
+        player.lastUpdate = null;
+      }
+
+      // Force chunk building due to lost context and buffer being cleaned by the browser
       player.update()
-      renderer.buildChunks(chunkSize)
+      renderer.buildChunks(chunkSize, renderer.lastRenderSkipped)
       renderer.setCamera(player.getEyePos().toArray(), player.angles)
       renderer.draw()
     }
@@ -101,6 +106,7 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
           </tbody>
         </ItemsSelectorTable>
       </ItemsSelectorTableContainer>
+      <canvas ref={textCanvasRef}/>
     </Body>
   )
 }

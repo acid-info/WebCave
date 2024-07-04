@@ -60,7 +60,9 @@ class Renderer implements IRenderer {
   public playerLeftLeg: WebGLBufferWithVertices;
   public playerRightLeg: WebGLBufferWithVertices;
 
-  constructor(canvasRef: HTMLCanvasElement) {
+  public lastRenderSkipped: boolean;
+
+  constructor(canvasRef: HTMLCanvasElement, textCanvasRef: HTMLCanvasElement) {
     this.canvas = canvasRef;
 
     this.canvas.width = canvasRef.clientWidth;
@@ -132,15 +134,14 @@ class Renderer implements IRenderer {
     this.texTerrain.image.src = "webcave/terrain.png";
 
     // Create canvas used to draw name tags
-    let textCanvas = this.textCanvas = document.createElement( "canvas" );
-    textCanvas.width = 256;
-    textCanvas.height = 64;
-    textCanvas.style.display = "none";
-    let ctx = this.textContext = textCanvas.getContext( "2d" );
+    this.textCanvas = textCanvasRef;
+    this.textCanvas.width = 256;
+    this.textCanvas.height = 64;
+    this.textCanvas.style.display = "none";
+    let ctx = this.textContext = this.textCanvas.getContext( "2d" );
     ctx.textAlign = "left";
     ctx.textBaseline = "middle";
     ctx.font = "24px Minecraftia";
-    document.getElementsByTagName( "body" )[0].appendChild( textCanvas );
   }
 
   public draw() {
@@ -248,6 +249,7 @@ class Renderer implements IRenderer {
 
     mat4.identity( this.modelMatrix );
     this.gl.uniformMatrix4fv( this.uModelMat, false, this.modelMatrix );
+    this.lastRenderSkipped = false;
   }
 
   /*
@@ -420,6 +422,15 @@ class Renderer implements IRenderer {
     }
   }
 
+  public shouldSkipRender() {
+    if (document.visibilityState !== 'visible') {
+      this.lastRenderSkipped = true;
+      return true;
+    }
+
+    return false;
+  }
+
   /*
   * Takes care of loading the shaders.
   * */
@@ -514,7 +525,7 @@ class Renderer implements IRenderer {
     }
   }
 
-  public buildChunks(count: number) {
+  public buildChunks(count: number, forceDirty?: boolean) {
     let gl = this.gl;
     let chunks = this.chunks;
     let world = this.world;
@@ -522,7 +533,7 @@ class Renderer implements IRenderer {
     for (let i = 0; i < chunks.length; i++) {
       let chunk = chunks[i];
 
-      if (chunk.dirty) {
+      if (chunk.dirty || forceDirty) {
         let vertices = [];
 
         // Create map of lowest blocks that are still lit
