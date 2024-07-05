@@ -5,7 +5,7 @@ import {
   ChatBox,
   ChatBoxEntry,
   ChatBoxText,
-  ChatContainer,
+  ChatContainer, CloseChatButton,
   JoinInfo,
   Nickname,
   NicknameEntry,
@@ -26,6 +26,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
   const [client, setClient] = useState<MultiplayerClient>();
   const [renderer, setRenderer] = useState<Renderer>();
   const [isReady, setIsReady] = useState<boolean>(false);
+  const [isKicked, setIsKicked] = useState(false);
 
   const [statusMessage, setStatusMessage] = useState<string>();
   const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
@@ -111,8 +112,6 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
         return;
       }
 
-      chatBoxInputRef.current.blur()
-
       client.sendMessage(msg);
 
       chatBoxInputRef.current.value = "";
@@ -148,6 +147,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     client.on("spawn", onSpawnHandler)
     client.on("message", onMessageHandler)
     client.on("chat", onChatMessageHandler)
+    client.on("kick", onKickHandler)
     client.connect(serverUrl, nickname)
   }
 
@@ -195,6 +195,11 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     return false;
   }
 
+  const onKickHandler: HandlerByMultiplayerEvent<"kick"> = (msg) => {
+    setIsKicked(true)
+    setStatusMessage(msg)
+  }
+
   const handleOpenChat = (state?: boolean) => {
     setIsChatOpen(prevState => {
       const newState = state != undefined ? state : !prevState;
@@ -212,34 +217,46 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
       ref={containerRef}
       onContextMenu={onContextMenu}
     >
-      <Canvas ref={webCaveRenderSurface} />
-      <ItemsSelectorTableContainer selectorWidthPx={selectorWidthPx}>
+      <canvas ref={textCanvasRef} />
+      <Canvas ref={webCaveRenderSurface} isKicked={isKicked}/>
+      <ItemsSelectorTableContainer
+        selectorWidthPx={selectorWidthPx}
+        isKicked={isKicked}
+      >
         <ItemsSelectorTable
           ref={materialSelectorRef}
           selectorWidthPx={selectorWidthPx}
         >
           <tbody>
-            <tr></tr>
+          <tr></tr>
           </tbody>
         </ItemsSelectorTable>
       </ItemsSelectorTableContainer>
 
-      <ChatContainer isChatOpen={isChatOpen}>
+      <ChatContainer
+        isChatOpen={isChatOpen}
+        isGameReady={isReady && !isKicked}
+      >
+        <CloseChatButton
+          onClick={() => handleOpenChat(false)}
+        >
+          Close chat
+        </CloseChatButton>
         <ChatBox onClick={() => handleOpenChat(true)}>
           <ChatBoxText>
             {messages.map((m, index) => (
               <span key={`${m}-${index}`}>
-              {m.user &&
-                <>
-                  {'<'}
-                  <span style={{ color: '#0a0' }}>
-                    {m.user}
-                  </span>
-                  {'> '}
-                </>
-              }
+          {m.user &&
+            <>
+              {'<'}
+              <span style={{ color: '#0a0' }}>
+                {m.user}
+              </span>
+              {'> '}
+            </>
+          }
                 {m.msg}
-            </span>
+        </span>
             ))}
           </ChatBoxText>
         </ChatBox>
@@ -250,7 +267,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
           spellCheck={false}
           onKeyDown={onChatboxEntry}
           isChatOpen={isChatOpen}
-          placeholder={"Enter message or close the chat by pressing 't'"}
+          placeholder={'Enter message or toggle the chat by pressing \'t\''}
         />
       </ChatContainer>
 
@@ -274,11 +291,6 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
         </JoinInfo>
       }
 
-      <button onClick={() => setIsChatOpen(prev => !prev)}>
-        toggle chat
-      </button>
-
-      <canvas ref={textCanvasRef} />
     </Body>
   );
 }

@@ -11,18 +11,20 @@ export const Body = styled.div`
   }
 `
 
-export const Canvas = styled.canvas`
+export const Canvas = styled.canvas<{isKicked?: boolean}>`
   width: 100%;
   height: 100%;
+  opacity: ${props => props.isKicked ? 0 : 1};
 `
 
 export const ItemsSelectorTableContainer = styled('div', {
-  shouldForwardProp: (prop) => prop != "selectorWidthPx"
-})<{ selectorWidthPx: number }>`
+  shouldForwardProp: (prop) => prop != "selectorWidthPx" && prop != "isKicked"
+})<{ selectorWidthPx: number, isKicked: boolean }>`
     position: absolute;
     top: 0;
     width: 100%;
     height: ${props => `${props.selectorWidthPx}px`};
+    opacity: ${props => props.isKicked ? 0 : 1};
     display: flex;
     justify-content: center;
 `
