@@ -16,6 +16,10 @@ Contains all the core game business logic
 Client implementation for any JS/TS frontend
 
 ---
+**webcave-server**    
+Server implementation for hosting a multiplayer game
+
+---
 **webcave-react**  
 React wrapper for **webcave-client** package
 

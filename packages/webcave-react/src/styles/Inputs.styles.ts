@@ -16,7 +16,7 @@ export const ChatContainer = styled.div<{isGameReady: boolean, isChatOpen: boole
 `
 
 export const ChatBox = styled.div`
-    width: 400px;
+    width: 460px;
     height: 195px;
     overflow: hidden;
     overflow-y: scroll;
