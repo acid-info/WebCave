@@ -141,7 +141,7 @@ class Renderer implements IRenderer {
     let ctx = this.textContext = this.textCanvas.getContext( "2d" );
     ctx.textAlign = "left";
     ctx.textBaseline = "middle";
-    ctx.font = "24px Minecraftia";
+    ctx.font = "24px";
   }
 
   public draw() {

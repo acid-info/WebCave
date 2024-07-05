@@ -14,10 +14,11 @@ import { PayloadBySocketEvent } from '@acid-info/webcave-core/src'
 import { MultiplayerClient, Player, Renderer } from '@acid-info/webcave-client/src'
 import { HandlerByMultiplayerEvent } from '@acid-info/webcave-client/src/types/multiplayer.ts'
 import { EChatActions } from '@acid-info/webcave-client/src/shared/controls.ts'
+import { DEFAULT_SELECTOR_WIDTH_PX } from '@acid-info/webcave-client/src'
 
 const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
   const {
-    selectorWidthPx,
+    selectorWidthPx = DEFAULT_SELECTOR_WIDTH_PX,
     chunkSize,
     serverUrl
   } = props;
@@ -62,7 +63,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     if (isReady) {
       intervalId = setInterval(() => {
         const currentTime = +new Date / 1000;
-        renderWorld(lastUpdate); // Update local
+        renderWorld(); // Update local
 
         if (currentTime - lastUpdate > 0.033 && !renderer.shouldSkipRender()) {
           client.updatePlayer()
@@ -78,7 +79,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     }
   }, [isReady])
 
-  const renderWorld = (lastUpdate: number) => {
+  const renderWorld = () => {
     if (client) {
       const player = client.world.localPlayer
 
@@ -110,11 +111,11 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
         return;
       }
 
-      addMessageToChat({
-        type: 'chat',
-        user: "pajicf",
-        msg
-      })
+      chatBoxInputRef.current.blur()
+
+      client.sendMessage(msg);
+
+      chatBoxInputRef.current.value = "";
     }
   }
 
@@ -145,6 +146,8 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     client.on("connect", onConnectionHandler)
     client.on("world", onWorldHandler)
     client.on("spawn", onSpawnHandler)
+    client.on("message", onMessageHandler)
+    client.on("chat", onChatMessageHandler)
     client.connect(serverUrl, nickname)
   }
 
@@ -173,9 +176,34 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     setIsReady(true)
     setStatusMessage(undefined)
 
-    player.on(EChatActions.OPEN_CHAT, () => {
-      setIsChatOpen(true)
-      chatBoxInputRef.current.focus()
+    player.on(EChatActions.OPEN_CHAT, handleOpenChat)
+  }
+
+  const onMessageHandler: HandlerByMultiplayerEvent<"message"> = (msg) => {
+    addMessageToChat({
+      type: 'generic',
+      msg
+    })
+  }
+  
+  const onChatMessageHandler: HandlerByMultiplayerEvent<"chat"> = (user, msg) => {
+    addMessageToChat({
+      type: 'chat',
+      user,
+      msg
+    })
+    return false;
+  }
+
+  const handleOpenChat = (state?: boolean) => {
+    setIsChatOpen(prevState => {
+      const newState = state != undefined ? state : !prevState;
+
+      if (prevState === false) {
+        chatBoxInputRef.current.focus()
+      }
+
+      return newState;
     })
   }
 
@@ -191,13 +219,13 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
           selectorWidthPx={selectorWidthPx}
         >
           <tbody>
-          <tr></tr>
+            <tr></tr>
           </tbody>
         </ItemsSelectorTable>
       </ItemsSelectorTableContainer>
 
       <ChatContainer isChatOpen={isChatOpen}>
-        <ChatBox>
+        <ChatBox onClick={() => handleOpenChat(true)}>
           <ChatBoxText>
             {messages.map((m, index) => (
               <span key={`${m}-${index}`}>
@@ -221,6 +249,8 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
           maxLength={60}
           spellCheck={false}
           onKeyDown={onChatboxEntry}
+          isChatOpen={isChatOpen}
+          placeholder={"Enter message or close the chat by pressing 't'"}
         />
       </ChatContainer>
 

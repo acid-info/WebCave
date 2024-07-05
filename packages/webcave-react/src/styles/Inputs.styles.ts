@@ -4,13 +4,13 @@ export const ChatContainer = styled.div<{isChatOpen: boolean}>`
     position: absolute;
     left: 20px;
     bottom: 18px;
-    opacity: ${props => props.isChatOpen ? '1' : '0'};
-    height: ${props => props.isChatOpen ? 'initial' : '0'};
+    opacity: ${props => props.isChatOpen ? '1' : '0.2'};
+    height: ${props => props.isChatOpen ? 'initial' : '100px'};
     overflow: hidden;
 `
 
 export const ChatBox = styled.div`
-    width: 600px;
+    width: 400px;
     height: 195px;
     overflow: hidden;
     overflow-y: scroll;
@@ -32,9 +32,10 @@ export const ChatBoxText = styled.div`
     align-items: start;
 `
 
-export const ChatBoxEntry = styled.input`
-    width: 610px;
-    height: 30px;
+export const ChatBoxEntry = styled.input<{isChatOpen: boolean}>`
+    opacity: ${props => props.isChatOpen ? '1' : '0'};
+    height: ${props => props.isChatOpen ? '30px' : '0'};
+    width: 400px;
     padding-left: 10px;
     padding-bottom: 2px;
     background: rgba(0, 0, 0, 0.6);
