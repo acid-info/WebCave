@@ -1,4 +1,4 @@
-import { EMaterial } from './material.ts'
+import { EMaterial } from './material'
 
 export type SocketClientEvents =
   // Networked block update

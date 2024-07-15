@@ -8,7 +8,8 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "./dist",
+    "noEmit": false,
+    "allowImportingTsExtensions": false,
   },
-  "files": [],
-  "include": [],
+  "include": ["./**/*"]
 }

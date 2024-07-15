@@ -1,6 +1,6 @@
-import { HandlerByEvent } from '../types/handlers.ts'
-import WebCaveServer from '../server.ts'
-import { getIp } from '../utils/network.ts'
+import { HandlerByEvent } from '../types/handlers'
+import WebCaveServer from '../server'
+import { getIp } from '../utils/network'
 import Config from '../config'
 
 export const chatHandler = (server: WebCaveServer): HandlerByEvent<"chat"> => (client, nickname, msg ) => {

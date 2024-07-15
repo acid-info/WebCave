@@ -1,6 +1,6 @@
 import Renderer from '../../webcave-client/src/renderer'
 import Player from '../../webcave-client/src/player'
-import MultiplayerClient from './multiplayer.ts'
+import MultiplayerClient from './multiplayer'
 
 export {
   Renderer,

@@ -1,7 +1,7 @@
-import { Vector, World } from '@acid-info/webcave-core/src'
-import FileUtil from '../utils/file.ts'
+import { Vector, World } from '@acid-info/webcave-core'
+import FileUtil from '../utils/file'
 import path from 'node:path'
-import logger from '../utils/logger.ts'
+import logger from '../utils/logger'
 
 class ServerWorld extends World {
   constructor(sx: number, sy: number, sz: number) {

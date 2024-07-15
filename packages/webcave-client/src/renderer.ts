@@ -17,7 +17,7 @@ import {
   WebGLTextureWithImage
 } from "./types/gl"
 
-class Renderer implements IRenderer {
+class Renderer implements IRenderer<WebGl> {
   public readonly canvas: HTMLCanvasElement;
   public readonly gl: WebGl;
   public program: WebGLProgram;

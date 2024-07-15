@@ -1,7 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["ES2020", "DOM", "DOM.Iterable"]
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "moduleResolution": "node",
+    "module": "esnext",
+    "allowImportingTsExtensions": false
   },
   "include": ["src"],
   "exclude": ["**/__tests__/**"]

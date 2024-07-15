@@ -19,7 +19,7 @@ export const Canvas = styled.canvas<{isKicked?: boolean}>`
 
 export const ItemsSelectorTableContainer = styled('div', {
   shouldForwardProp: (prop) => prop != "selectorWidthPx" && prop != "isKicked"
-})<{ selectorWidthPx: number, isKicked: boolean }>`
+})<{ selectorWidthPx: number, isKicked?: boolean }>`
     position: absolute;
     top: 0;
     width: 100%;

@@ -1,5 +1,5 @@
-import WebCaveServer from '../server.ts'
-import { HandlerByEvent } from '../types/handlers.ts'
+import WebCaveServer from '../server'
+import { HandlerByEvent } from '../types/handlers'
 
 export const joinHandler = (server: WebCaveServer): HandlerByEvent<"join"> => (client, nickname) => {
   server.sendMessage( "Welcome! Enjoy your stay, " + nickname + "!", client );

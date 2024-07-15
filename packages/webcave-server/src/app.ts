@@ -1,12 +1,12 @@
-import ServerWorld from './game/world.ts'
+import ServerWorld from './game/world'
 import Config from './config'
-import logger from './utils/logger.ts'
+import logger from './utils/logger'
 import { Server as SocketServer } from 'socket.io'
-import WebCaveServer from './server.ts'
+import WebCaveServer from './server'
 import { Server } from "http";
-import { chatHandler } from './handlers/chat.ts'
-import { joinHandler, leaveHandler } from './handlers/network.ts'
-import World from './game/world.ts'
+import { chatHandler } from './handlers/chat'
+import { joinHandler, leaveHandler } from './handlers/network'
+import World from './game/world'
 
 function initWorld() {
   const world = new ServerWorld(

@@ -1,15 +1,15 @@
 import React from 'react'
-import { DEFAULT_WORLD_STRING } from './WebCave.defaultWorld.ts'
-import { WebCaveGameState, WebCaveProps } from './WebCave.types.ts'
-import { Physics, World } from '@acid-info/webcave-core/src/index.ts'
-import { DEFAULT_SELECTOR_WIDTH_PX, Player, Renderer } from '@acid-info/webcave-client/src/index.ts'
+import { DEFAULT_WORLD_STRING } from './WebCave.defaultWorld'
+import { WebCaveGameState, WebCaveProps } from './WebCave.types'
+import { Physics, World } from '@acid-info/webcave-core/src/index'
+import { DEFAULT_SELECTOR_WIDTH_PX, Player, Renderer } from '@acid-info/webcave-client/src/index'
 import { MouseEventHandler, useEffect, useRef, useState } from 'react'
 import {
   Body,
   Canvas,
   ItemsSelectorTableContainer,
   ItemsSelectorTable
-} from "../styles/WebCave.styles.ts"
+} from "../styles/WebCave.styles"
 
 const WebCave: React.FC<WebCaveProps> = (props) => {
   const {

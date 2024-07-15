@@ -1,5 +1,5 @@
 import { Socket, io } from 'socket.io-client'
-import { EventHandlersMap, HandlerByMultiplayerEvent, MultiplayerEvents } from './types/multiplayer.ts'
+import { EventHandlersMap, HandlerByMultiplayerEvent, MultiplayerEvents } from './types/multiplayer'
 import {
   SocketEmitterPayloadMap,
   SocketClientEvents,

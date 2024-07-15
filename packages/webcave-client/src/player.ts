@@ -23,7 +23,7 @@ import { DynamicObject } from './types/util'
 import {
   WebGLObject,
 } from "./types/gl"
-import MultiplayerClient from './multiplayer.ts'
+import MultiplayerClient from './multiplayer'
 
 class Player implements IPlayer {
   public world: World;

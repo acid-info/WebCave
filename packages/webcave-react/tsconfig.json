@@ -6,7 +6,8 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "types": ["node"],
     "module": "ES2020",
-    "moduleResolution": "NodeNext"
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": true
   },
   "files": [],
   "include": [],

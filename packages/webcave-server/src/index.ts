@@ -1,9 +1,9 @@
-import Config from './config/index.ts'
-import logger from './utils/logger.ts'
+import Config from './config'
+import logger from './utils/logger'
 import { Server } from "socket.io";
 import express from "express";
 import { createServer } from "http";
-import app from './app.ts'
+import app from './app'
 
 const expressServer = express();
 const httpServer = createServer(expressServer);
@@ -17,3 +17,5 @@ setInterval( function saveWorld() {
   world.saveToFile(Config.WORLD_FILE_NAME);
   logger.info( "Saved world to file." );
 }, Config.SECONDS_BETWEEN_SAVES * 1000 );
+
+export default socketServer;

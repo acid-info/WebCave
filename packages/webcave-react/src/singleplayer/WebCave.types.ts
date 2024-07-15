@@ -1,12 +1,11 @@
 import {
-  Physics,
   World
-} from '@acid-info/webcave-core/src/index.ts'
+} from '@acid-info/webcave-core/src/index'
 
 import {
   Renderer,
   Player
-} from "@acid-info/webcave-client/src/index.ts"
+} from "@acid-info/webcave-client/src/index"
 
 export type WebCaveGameState = {
   world: World

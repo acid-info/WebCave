@@ -42,7 +42,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "allowJs": true,
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": false,
     "skipLibCheck": true // @types/webpack and webpack/types.d.ts are not the same thing
   },
   "include": ["./**/*"],

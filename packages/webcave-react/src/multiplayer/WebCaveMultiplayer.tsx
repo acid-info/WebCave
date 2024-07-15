@@ -1,6 +1,6 @@
 import React, { KeyboardEventHandler, MouseEventHandler, useEffect, useRef, useState } from 'react'
-import { WebCaveMultiplayerProps } from './WebCaveMultiplayer.types.ts'
-import { Body, Canvas, ItemsSelectorTable, ItemsSelectorTableContainer } from '../styles/WebCave.styles.ts'
+import { WebCaveMultiplayerProps } from './WebCaveMultiplayer.types'
+import { Body, Canvas, ItemsSelectorTable, ItemsSelectorTableContainer } from '../styles/WebCave.styles'
 import {
   ChatBox,
   ChatBoxEntry,
@@ -9,11 +9,11 @@ import {
   JoinInfo,
   Nickname,
   NicknameEntry,
-} from '../styles/Inputs.styles.ts'
+} from '../styles/Inputs.styles'
 import { PayloadBySocketEvent } from '@acid-info/webcave-core/src'
 import { MultiplayerClient, Player, Renderer } from '@acid-info/webcave-client/src'
-import { HandlerByMultiplayerEvent } from '@acid-info/webcave-client/src/types/multiplayer.ts'
-import { EChatActions } from '@acid-info/webcave-client/src/shared/controls.ts'
+import { HandlerByMultiplayerEvent } from '@acid-info/webcave-client/src/types/multiplayer'
+import { EChatActions } from '@acid-info/webcave-client/src/shared/controls'
 import { DEFAULT_SELECTOR_WIDTH_PX } from '@acid-info/webcave-client/src'
 
 const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {

@@ -13,6 +13,7 @@
     "dev:mp": "concurrently --names 'SERVER,CLIENT' --prefix-colors 'green,blue' --kill-others 'yarn run dev:server' 'VITE_APP_IS_MULTIPLAYER=true yarn run dev:client'",
     "dev:client": "lerna --scope @acid-info/webcave-example-frontend run dev",
     "dev:server": "lerna --scope @acid-info/webcave-server run dev",
+    "start:server": "lerna --scope @acid-info/webcave-server run serve",
     "prettier": "pretty-quick",
     "lint": "pretty-quick --check"
   },
@@ -20,6 +21,7 @@
     "concurrently": "^8.2.2",
     "lerna": "^8.1.3",
     "prettier": "^3.2.5",
-    "pretty-quick": "^4.0.0"
+    "pretty-quick": "^4.0.0",
+    "typescript": "5.4.5"
   }
 }

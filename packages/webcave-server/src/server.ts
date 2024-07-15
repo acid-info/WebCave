@@ -1,5 +1,5 @@
 import { Server, Socket } from 'socket.io'
-import { EventHandlersMap, HandlerByEvent, HandlerEvents } from './types/handlers.ts'
+import { EventHandlersMap, HandlerByEvent, HandlerEvents } from './types/handlers'
 import {
   Block,
   PayloadBySocketEvent,
@@ -7,11 +7,11 @@ import {
   SocketEmitterPayloadMap,
   SocketServerEvents,
   World,
-} from '@acid-info/webcave-core/src'
-import logger from './utils/logger.ts'
-import { getIp, sanitiseInput } from './utils/network.ts'
+} from '@acid-info/webcave-core'
+import logger from './utils/logger'
+import { getIp, sanitiseInput } from './utils/network'
 import Config from './config'
-import { normaliseAngle } from './utils/math.ts'
+import { normaliseAngle } from './utils/math'
 
 type GameSocket = Socket<
   SocketEmitterPayloadMap<SocketClientEvents>,

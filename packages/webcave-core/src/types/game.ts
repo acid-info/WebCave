@@ -1,9 +1,8 @@
-import Vector from '../shared/vector.ts'
-import { WebGl } from '@acid-info/webcave-client/src/types/gl.ts'
+import Vector from '../shared/vector'
 
-export interface IRenderer {
+export interface IRenderer<GLContext = any> {
   onBlockChanged: (x: number, y: number, z: number) => void;
-  gl: WebGl;
+  gl: GLContext;
 }
 
 export interface IPlayer {
