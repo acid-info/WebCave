@@ -1,0 +1,10 @@
+services:
+  webcave_server:
+    container_name: "server"
+    build:
+      context: ./../../
+      dockerfile: ./packages/webcave-server/Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ./saved_world_data:/usr/src/app/packages/webcave-server/saved_world_data

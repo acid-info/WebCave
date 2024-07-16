@@ -33,8 +33,12 @@ game
 ## Running the project ⊂(◉‿◉)つ
 ### Requirements (︶︹︶)
 To run the project, you'll need:
-- [Node.js](https://nodejs.org/en/) (Version 18)
-- [Yarn](https://yarnpkg.com/)
+- If setting up using **[Docker](https://www.docker.com)**:
+  - Installed Docker
+  - Installed docker-compose (Bundled with the official Docker setup)
+- If setting up locally
+  - [Node.js](https://nodejs.org/en/) (Version 18)
+  - [Yarn](https://yarnpkg.com/)
 
 ### Installation ███▒▒▒▒▒▒▒
 #### Git
@@ -53,6 +57,21 @@ To run the project, you'll need:
 | Running Multiplayer  | ```yarn dev:mp```     | Runs the client and server in development mode allowing for Multiplayer in unified flow |
 | Run the Client       | ```yarn dev:client``` | Runs the example frontend in dev mode                                                   |
 | Run the Server       | ```yarn dev:server``` | Runs the game server in dev mode                                                        |
+
+
+### Running the game server ─=≡Σ((( つ◕ل͜◕)つ
+To run the server, follow next steps:
+
+**Step 1:** Navigate to the server package  
+```cd packages/webcave-server```
+
+**Step 2:** Create the .env file and fill/change any missing data  
+```cp .env.example .env```
+
+**Step 3:** Run docker  
+```docker-compose up```
+
+**Step 4:** Enjoy! ٩(^‿^)۶
 
 <br/>
 <img align="left" alt="acid-info-logo" width="100" height="100" src="./github/assets/acid.png">
