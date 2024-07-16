@@ -12,17 +12,20 @@ function initWorld() {
   const world = new ServerWorld(
     Config.WORLD_SX,
     Config.WORLD_SY,
-    Config.WORLD_SZ
+    Config.WORLD_SZ,
+    Config.WORLD_FILE_NAME,
+    Config.WORLD_FILE_FOLDER
   );
 
   logger.info( "Creating world..." );
 
-  if (world.loadFromFile(Config.WORLD_FILE_NAME)) {
+  if (world.loadFromFile()) {
     logger.info( "Loaded the world from file." );
   } else {
     logger.info( "Creating a new empty world." );
-    world.createFlatWorld( Config.WORLD_GROUNDHEIGHT );
-    world.saveToFile(Config.WORLD_FILE_NAME);
+    world.createFlatWorld(Config.WORLD_GROUNDHEIGHT);
+    world.prepareNewSaveDir()
+    world.saveToFile();
   }
 
   return world;

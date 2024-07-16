@@ -12,5 +12,6 @@ export type AppConfig = {
   ONE_USER_PER_IP: boolean
   IS_BEHIND_PROXY: boolean
   WORLD_FILE_NAME: string
+  WORLD_FILE_FOLDER: string
   CORS_POLICY: CorsOptions
 }

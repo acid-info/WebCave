@@ -44,7 +44,7 @@ To run the project, you'll need:
 #### Installing the dependencies
 3. Run ```yarn``` to install the dependencies
 
-### Commands ¯\(°_o)/¯
+### Commands (Development) ¯\(°_o)/¯
 | Name                 | Command               | Description                                                                             |
 |----------------------|-----------------------|-----------------------------------------------------------------------------------------|
 | Build                | ```yarn build```      | Builds all the packages inside the project                                              |

@@ -1,20 +1,33 @@
 import { Vector, World } from '@acid-info/webcave-core'
 import FileUtil from '../utils/file'
 import path from 'node:path'
-import logger from '../utils/logger'
 
 class ServerWorld extends World {
-  constructor(sx: number, sy: number, sz: number) {
+  public readonly worldSaveFileName: string;
+  public readonly worldSaveDirName: string;
+
+  constructor(sx: number, sy: number, sz: number, filename: string, dir: string) {
     super(sx, sy, sz)
+
+    this.worldSaveDirName = dir;
+    this.worldSaveFileName = filename;
   }
 
-  public getWorldFilePath(filename: string) {
-    return path.join(process.cwd(), filename);
+  public getWorldFilePath() {
+    return path.join(process.cwd(), this.worldSaveDirName, this.worldSaveFileName);
   }
 
-  public loadFromFile(filename: string) {
+  public prepareNewSaveDir() {
+    const dir = path.join(process.cwd(), this.worldSaveDirName);
+
+    if (!FileUtil.directoryExists(dir)) {
+      FileUtil.createDirectory(dir)
+    }
+  }
+
+  public loadFromFile() {
     try {
-      const path = this.getWorldFilePath(filename);
+      const path = this.getWorldFilePath();
       const data = FileUtil.readFileSync(path).toString('utf8');
 
       const [spawnX, spawnY, spawnZ] = data.split(',');
@@ -27,15 +40,14 @@ class ServerWorld extends World {
 
       return true;
     } catch ( e ) {
-      logger.error(e)
       return false;
     }
   }
 
-  public saveToFile(filename: string) {
+  public saveToFile() {
     const data = this.spawnPoint.x + "," + this.spawnPoint.y + "," + this.spawnPoint.z + "," + this.toNetworkString();
 
-    const path = this.getWorldFilePath(filename);
+    const path = this.getWorldFilePath();
     FileUtil.writeFileSync( path, data );
   }
 }

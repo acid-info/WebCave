@@ -50,6 +50,7 @@ const Config: AppConfig = {
   ONE_USER_PER_IP: ONE_USER_PER_IP === "true",
   IS_BEHIND_PROXY: IS_BEHIND_PROXY === "true",
   WORLD_FILE_NAME,
+  WORLD_FILE_FOLDER: "saved_world_data",
   CORS_POLICY: {  credentials: true,
     origin: CLIENT_ORIGIN_URL,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE'

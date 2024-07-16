@@ -14,7 +14,7 @@ const socketServer = new Server(httpServer, {
 const { world } = app(socketServer, httpServer);
 
 setInterval( function saveWorld() {
-  world.saveToFile(Config.WORLD_FILE_NAME);
+  world.saveToFile();
   logger.info( "Saved world to file." );
 }, Config.SECONDS_BETWEEN_SAVES * 1000 );
 

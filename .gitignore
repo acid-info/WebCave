@@ -23,5 +23,3 @@ pnpm-debug.log*
 lerna-debug.log*
 
 .env
-
-webcave_world
