@@ -1,9 +1,13 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled"
 
-export const Body = styled.div`
+type BodyProps = {
+  backgroundImage: string
+}
+
+export const Body = styled.div<BodyProps>`
   height: 560px;
   width: 100%;
-  background: url('/webcave/background.png');
+  background: ${props => `url(${props.backgroundImage})`};
   position: relative;
 
   @media (max-width: 768px) {
@@ -29,9 +33,14 @@ export const ItemsSelectorTableContainer = styled('div', {
     justify-content: center;
 `
 
+type ItemSelectorTableProps = {
+  selectorWidthPx: number
+  blockThumbsImage: string
+}
+
 export const ItemsSelectorTable = styled('table', {
   shouldForwardProp: (prop) => prop != "selectorWidthPx"
-})<{ selectorWidthPx: number }>`
+})<ItemSelectorTableProps>`
     background: rgba(0, 0, 0, 0.6);
 
     & tr {
@@ -45,6 +54,6 @@ export const ItemsSelectorTable = styled('table', {
         cursor: pointer;
         opacity: 0.3;
 
-        background: url('/webcave/blockthumbs.png') 0 0;
+        background: ${props => `url(${props.blockThumbsImage}) 0 0`};
     }
 `

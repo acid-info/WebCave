@@ -1,7 +1,7 @@
 import React from 'react'
 import { DEFAULT_WORLD_STRING } from './WebCave.defaultWorld'
 import { WebCaveGameState, WebCaveProps } from './WebCave.types'
-import { Physics, World } from '@acid-info/webcave-core/src/index'
+import { World } from '@acid-info/webcave-core/src/index'
 import { DEFAULT_SELECTOR_WIDTH_PX, Player, Renderer } from '@acid-info/webcave-client/src/index'
 import { MouseEventHandler, useEffect, useRef, useState } from 'react'
 import {
@@ -16,7 +16,8 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
     selectorWidthPx = DEFAULT_SELECTOR_WIDTH_PX,
     worldString = DEFAULT_WORLD_STRING,
     worldSize,
-    chunkSize
+    chunkSize,
+    texturePack
   } = props;
 
   const [gameState, setGameState] = useState<WebCaveGameState>()
@@ -29,7 +30,12 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
     const world = new World(worldSize, worldSize, worldSize)
     world.createFromString(worldString)
 
-    const renderer = new Renderer(webCaveRenderSurface.current, textCanvasRef.current)
+    const renderer = new Renderer(
+      webCaveRenderSurface.current,
+      textCanvasRef.current,
+      texturePack
+    )
+
     renderer.setWorld(world, chunkSize)
     renderer.setPerspective(70, 0.01, 200)
 
@@ -94,12 +100,14 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
     <Body
       ref={containerRef}
       onContextMenu={onContextMenu}
+      backgroundImage={texturePack.backgroundImage}
     >
       <Canvas ref={webCaveRenderSurface}/>
       <ItemsSelectorTableContainer selectorWidthPx={selectorWidthPx}>
         <ItemsSelectorTable
           ref={materialSelectorRef}
           selectorWidthPx={selectorWidthPx}
+          blockThumbsImage={texturePack.blockThumbsImage}
         >
           <tbody>
             <tr></tr>

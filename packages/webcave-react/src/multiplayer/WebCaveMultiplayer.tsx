@@ -20,7 +20,8 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
   const {
     selectorWidthPx = DEFAULT_SELECTOR_WIDTH_PX,
     chunkSize,
-    serverUrl
+    serverUrl,
+    texturePack
   } = props;
 
   const [client, setClient] = useState<MultiplayerClient>();
@@ -42,7 +43,14 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
 
   useEffect(() => {
     nicknameInputRef.current.focus();
-    setRenderer(new Renderer(webCaveRenderSurface.current, textCanvasRef.current))
+
+    const rend = new Renderer(
+      webCaveRenderSurface.current,
+      textCanvasRef.current,
+      texturePack
+    )
+
+    setRenderer(rend)
   }, []);
 
   useEffect(() => {
@@ -216,6 +224,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     <Body
       ref={containerRef}
       onContextMenu={onContextMenu}
+      backgroundImage={texturePack.backgroundImage}
     >
       <canvas ref={textCanvasRef} />
       <Canvas ref={webCaveRenderSurface} isKicked={isKicked}/>
@@ -226,6 +235,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
         <ItemsSelectorTable
           ref={materialSelectorRef}
           selectorWidthPx={selectorWidthPx}
+          blockThumbsImage={texturePack.blockThumbsImage}
         >
           <tbody>
           <tr></tr>

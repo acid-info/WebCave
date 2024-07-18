@@ -9,3 +9,4 @@ export {
 }
 
 export { DEFAULT_SELECTOR_WIDTH_PX } from "./shared/ui"
+export type { TextureConfig } from "./types/texture"

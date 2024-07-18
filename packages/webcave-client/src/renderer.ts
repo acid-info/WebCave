@@ -16,6 +16,7 @@ import {
   WebGLObject,
   WebGLTextureWithImage
 } from "./types/gl"
+import { TextureConfig } from './types/texture'
 
 class Renderer implements IRenderer<WebGl> {
   public readonly canvas: HTMLCanvasElement;
@@ -62,7 +63,7 @@ class Renderer implements IRenderer<WebGl> {
 
   public lastRenderSkipped: boolean;
 
-  constructor(canvasRef: HTMLCanvasElement, textCanvasRef: HTMLCanvasElement) {
+  constructor(canvasRef: HTMLCanvasElement, textCanvasRef: HTMLCanvasElement, textureConfig: TextureConfig) {
     this.canvas = canvasRef;
 
     this.canvas.width = canvasRef.clientWidth;
@@ -120,7 +121,7 @@ class Renderer implements IRenderer<WebGl> {
       this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST );
       this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST );
     };
-    this.texPlayer.image.src = "webcave/player.png";
+    this.texPlayer.image.src = textureConfig.player;
 
     // Load terrain texture
     this.texTerrain = this.gl.createTexture();
@@ -131,7 +132,7 @@ class Renderer implements IRenderer<WebGl> {
       this.gl.texParameteri( this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST );
       this.gl.texParameteri( this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST );
     };
-    this.texTerrain.image.src = "webcave/terrain.png";
+    this.texTerrain.image.src = textureConfig.terrain;
 
     // Create canvas used to draw name tags
     this.textCanvas = textCanvasRef;

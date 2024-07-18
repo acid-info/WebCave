@@ -5,7 +5,8 @@ import {
 import {
   Renderer,
   Player
-} from "@acid-info/webcave-client/src/index"
+} from '@acid-info/webcave-client/src'
+import { TexturePack } from '../types/texture'
 
 export type WebCaveGameState = {
   world: World
@@ -17,5 +18,6 @@ export type WebCaveProps = {
   selectorWidthPx?: number,
   worldString?: string,
   worldSize: number,
-  chunkSize: number
+  chunkSize: number,
+  texturePack: TexturePack
 }
