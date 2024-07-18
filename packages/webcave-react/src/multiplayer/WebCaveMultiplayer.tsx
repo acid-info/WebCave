@@ -21,7 +21,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     selectorWidthPx = DEFAULT_SELECTOR_WIDTH_PX,
     chunkSize,
     serverUrl,
-    texturePack
+    texturePack,
   } = props;
 
   const [client, setClient] = useState<MultiplayerClient>();
@@ -225,6 +225,8 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
       ref={containerRef}
       onContextMenu={onContextMenu}
       backgroundImage={texturePack.backgroundImage}
+      width={props.width}
+      height={props.height}
     >
       <canvas ref={textCanvasRef} />
       <Canvas ref={webCaveRenderSurface} isKicked={isKicked}/>

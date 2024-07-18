@@ -7,6 +7,8 @@ export type WebCaveMultiplayerProps = {
   chunkSize: number
   serverUrl: string
   texturePack: TexturePack
+  width?: string
+  height?: string
 }
 
 export type WebCaveMultiplayerState = {

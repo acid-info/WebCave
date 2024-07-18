@@ -19,5 +19,7 @@ export type WebCaveProps = {
   worldString?: string,
   worldSize: number,
   chunkSize: number,
-  texturePack: TexturePack
+  texturePack: TexturePack,
+  width?: string,
+  height?: string
 }

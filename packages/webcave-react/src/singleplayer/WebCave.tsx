@@ -101,6 +101,8 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
       ref={containerRef}
       onContextMenu={onContextMenu}
       backgroundImage={texturePack.backgroundImage}
+      height={props.height}
+      width={props.width}
     >
       <Canvas ref={webCaveRenderSurface}/>
       <ItemsSelectorTableContainer selectorWidthPx={selectorWidthPx}>

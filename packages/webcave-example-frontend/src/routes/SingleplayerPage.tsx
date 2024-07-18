@@ -9,6 +9,7 @@ const SingleplayerPage: React.FC = () => {
         chunkSize={8}
         worldSize={16}
         texturePack={EXAMPLE_TEXTURE_PACK}
+        height={"700px"}
       />
     </>
   )

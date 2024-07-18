@@ -2,11 +2,13 @@ import styled from "@emotion/styled"
 
 type BodyProps = {
   backgroundImage: string
+  height?: string;
+  width?: string;
 }
 
 export const Body = styled.div<BodyProps>`
-  height: 560px;
-  width: 100%;
+  height: ${props => props.height || "100%"};
+  width: ${props => props.width || "100%"};
   background: ${props => `url(${props.backgroundImage})`};
   position: relative;
 

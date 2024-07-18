@@ -9,6 +9,7 @@ const MultiplayerPage: React.FC = () => {
         chunkSize={8}
         serverUrl={import.meta.env.VITE_APP_SERVER_URL}
         texturePack={EXAMPLE_TEXTURE_PACK}
+        height={"700px"}
       />
     </>
   )
