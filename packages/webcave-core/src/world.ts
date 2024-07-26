@@ -91,7 +91,7 @@ class World {
           if (z === 0) {
             materialId = EMaterial.BEDROCK
           } else if (z > 0 && z < bottomBlockHeight) {
-            materialId = EMaterial.COBBLESTONE
+            materialId = EMaterial.CONCRETE
           } else {
             materialId = EMaterial.DIRT
           }
