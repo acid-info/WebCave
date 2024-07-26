@@ -1,5 +1,4 @@
 import React from 'react'
-import { DEFAULT_WORLD_STRING } from './WebCave.defaultWorld'
 import { WebCaveGameState, WebCaveProps } from './WebCave.types'
 import { World } from '@acid-info/webcave-core/src/index'
 import { DEFAULT_SELECTOR_WIDTH_PX, Player, Renderer } from '@acid-info/webcave-client/src/index'
@@ -14,6 +13,7 @@ import {
 const WebCave: React.FC<WebCaveProps> = (props) => {
   const {
     selectorWidthPx = DEFAULT_SELECTOR_WIDTH_PX,
+    worldSeed,
     worldSize,
     chunkSize,
     texturePack
@@ -27,7 +27,7 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
 
   const initWorldState = () => {
     const world = new World(worldSize, worldSize, worldSize)
-    world.createRandomisedWorld(worldSize / 2)
+    world.createRandomisedWorld(worldSize / 2, worldSeed)
 
     const renderer = new Renderer(
       webCaveRenderSurface.current,

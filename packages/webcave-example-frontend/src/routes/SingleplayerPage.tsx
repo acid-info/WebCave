@@ -8,6 +8,7 @@ const SingleplayerPage: React.FC = () => {
       <WebCave
         chunkSize={8}
         worldSize={64}
+        worldSeed="acid-info"
         texturePack={EXAMPLE_TEXTURE_PACK}
         height={"700px"}
       />

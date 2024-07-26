@@ -4,6 +4,7 @@ import { EMaterial, Material } from './types/material'
 import Block from './block'
 import { IPlayer as Player, IRenderer as Renderer } from './types/game'
 import { createNoise2D } from 'simplex-noise'
+import alea from 'alea'
 
 /*
 * World container
@@ -55,6 +56,7 @@ class World {
 
   public createRandomisedWorld(
     height: number,
+    seed?: string,
     scale: number = this.DEFAULT_SCALE,
     magnitude: number = this.DEFAULT_MAGNITUDE,
     offset: number = this.DEFAULT_OFFSET,
@@ -72,7 +74,7 @@ class World {
       }
     }
 
-    const simplex = createNoise2D();
+    const simplex = seed ? createNoise2D(alea(seed)) : createNoise2D();
     for (let x = 0; x < this.sx; x++) {
       for (let y = 0; y < this.sy; y++) {
         const value = simplex(x / scale, y / scale);
