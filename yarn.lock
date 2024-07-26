@@ -2,6 +2,28 @@
 # yarn lockfile v1
 
 
+"@acid-info/webcave-core@*":
+  version "1.0.0-alpha.0"
+  dependencies:
+    "@types/react" "^18.2.66"
+    gl-matrix "3.4.3"
+    rollup "^2.60.2"
+    rollup-plugin-typescript2 "^0.31.1"
+    tslib "^2.3.1"
+    typescript "^5.4.5"
+
+"@acid-info/webcave-react@*":
+  version "1.0.0-alpha.0"
+  dependencies:
+    "@acid-info/webcave-client" "^1.0.0-alpha.0"
+    "@acid-info/webcave-core" "^1.0.0-alpha.0"
+    "@types/react" "^18.2.66"
+    rollup "^2.60.2"
+    rollup-plugin-typescript2 "^0.31.1"
+    socket.io-client "^4.7.5"
+    tslib "^2.3.1"
+    typescript "^5.4.5"
+
 "@ampproject/remapping@^2.2.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.3.0.tgz#ed441b6fa600072520ce18b43d2c8cc8caecc7f4"
@@ -5762,6 +5784,11 @@ simple-update-notifier@^2.0.0:
   integrity sha512-a2B9Y0KlNXl9u/vsW6sTIu9vGEpfKu2wRV6l1H3XEas/0gUIzGzBoP/IouTcUQbm9JWZLH3COxyn03TYlFax6w==
   dependencies:
     semver "^7.5.3"
+
+simplex-noise@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/simplex-noise/-/simplex-noise-4.0.2.tgz#f8e0a7848b0113a4a0ee346e48717f2b703f0ed3"
+  integrity sha512-E3c6BbcFcwyxExp5lorMYP3tZqSfs4iHcNzv2mRJIP4xf3G4r77b9YE8ceIt1ntyTu2VFFISunxt2YX9CpAf+w==
 
 slash@3.0.0, slash@^3.0.0:
   version "3.0.0"

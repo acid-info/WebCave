@@ -14,7 +14,6 @@ import {
 const WebCave: React.FC<WebCaveProps> = (props) => {
   const {
     selectorWidthPx = DEFAULT_SELECTOR_WIDTH_PX,
-    worldString = DEFAULT_WORLD_STRING,
     worldSize,
     chunkSize,
     texturePack
@@ -28,7 +27,7 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
 
   const initWorldState = () => {
     const world = new World(worldSize, worldSize, worldSize)
-    world.createFromString(worldString)
+    world.createRandomisedWorld(worldSize / 2)
 
     const renderer = new Renderer(
       webCaveRenderSurface.current,

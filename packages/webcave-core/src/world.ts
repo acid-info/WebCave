@@ -2,10 +2,8 @@ import Vector from './shared/vector'
 import { MATERIALS } from './material'
 import { EMaterial, Material } from './types/material'
 import Block from './block'
-import {
-  IRenderer as Renderer,
-  IPlayer as Player
-} from "./types/game"
+import { IPlayer as Player, IRenderer as Renderer } from './types/game'
+import { createNoise2D } from 'simplex-noise'
 
 /*
 * World container
@@ -25,6 +23,10 @@ import {
 * sz - World size in the Z-direction.
 * */
 class World {
+  public readonly DEFAULT_SCALE = 30;
+  public readonly DEFAULT_MAGNITUDE = 0.15;
+  public readonly DEFAULT_OFFSET = 0.8;
+
   public readonly sx: number;
   public readonly sy: number;
   public readonly sz: number;
@@ -51,6 +53,61 @@ class World {
     }
   }
 
+  public createRandomisedWorld(
+    height: number,
+    scale: number = this.DEFAULT_SCALE,
+    magnitude: number = this.DEFAULT_MAGNITUDE,
+    offset: number = this.DEFAULT_OFFSET,
+  ) {
+    this.spawnPoint = new Vector( this.sx / 2 + 0.5, this.sy / 2 + 0.5, height );
+
+    let blockIds: EMaterial[][][] = new Array(this.sx);
+    for (let x = 0; x < this.sx; x++) {
+      blockIds[x] = new Array(this.sy);
+      for (let y = 0; y < this.sy; y++) {
+        blockIds[x][y] = new Array(this.sz);
+        for (let z = 0; z < this.sz; z++) {
+          blockIds[x][y][z] = EMaterial.AIR;
+        }
+      }
+    }
+
+    const simplex = createNoise2D();
+    for (let x = 0; x < this.sx; x++) {
+      for (let y = 0; y < this.sy; y++) {
+        const value = simplex(x / scale, y / scale);
+
+        const scaledNoise = offset + magnitude * value;
+
+        const h = height * scaledNoise;
+        const amortizeH = Math.max(0, Math.min(h, height));
+        const bottomBlockHeight = amortizeH * 0.8;
+
+        for (let z = 0; z < amortizeH; z++) {
+          let materialId: EMaterial;
+
+          if (z === 0) {
+            materialId = EMaterial.BEDROCK
+          } else if (z > 0 && z < bottomBlockHeight) {
+            materialId = EMaterial.COBBLESTONE
+          } else {
+            materialId = EMaterial.DIRT
+          }
+
+          blockIds[x][y][z] = materialId;
+        }
+      }
+    }
+
+    for (let x = 0; x < this.sx; x++) {
+      for (let y = 0; y < this.sy; y++) {
+        for (let z = 0; z < this.sz; z++) {
+          this.blocks[x][y][z] = MATERIALS[blockIds[x][y][z]];
+        }
+      }
+    }
+  }
+
   /*
   * Sets up the world so that the bottom half is filled with dirt
   * and the top half with air.
@@ -58,10 +115,13 @@ class World {
   public createFlatWorld(height: number) {
     this.spawnPoint = new Vector( this.sx / 2 + 0.5, this.sy / 2 + 0.5, height );
 
-    for ( let x = 0; x < this.sx; x++ )
-      for ( let y = 0; y < this.sy; y++ )
-        for ( let z = 0; z < this.sz; z++ )
+    for ( let x = 0; x < this.sx; x++ ) {
+      for ( let y = 0; y < this.sy; y++ ) {
+        for ( let z = 0; z < this.sz; z++ ) {
           this.blocks[x][y][z] = z < height ? MATERIALS[EMaterial.DIRT] : MATERIALS[EMaterial.AIR];
+        }
+      }
+    }
   }
 
   /*

@@ -16,7 +16,6 @@ export type WebCaveGameState = {
 
 export type WebCaveProps = {
   selectorWidthPx?: number,
-  worldString?: string,
   worldSize: number,
   chunkSize: number,
   texturePack: TexturePack,
