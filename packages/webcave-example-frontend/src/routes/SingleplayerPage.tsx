@@ -1,5 +1,5 @@
 import React from "react";
-import { WebCave } from '@acid-info/webcave-react/src/index.js'
+import { WebCave } from '@acid-info/webcave-react/src'
 import { EXAMPLE_TEXTURE_PACK } from '../texture'
 
 const SingleplayerPage: React.FC = () => {

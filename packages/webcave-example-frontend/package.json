@@ -11,10 +11,10 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.24.0"
+    "react-router-dom": "^6.24.0",
+    "@acid-info/webcave-react": "^1.0.0-alpha.0"
   },
   "devDependencies": {
-    "@acid-info/webcave-react": "*",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@types/react": "^18.2.66",

@@ -11,10 +11,15 @@ import {
   NicknameEntry,
 } from '../styles/Inputs.styles'
 import { PayloadBySocketEvent } from '@acid-info/webcave-core/src'
-import { MultiplayerClient, Player, Renderer } from '@acid-info/webcave-client/src'
-import { HandlerByMultiplayerEvent } from '@acid-info/webcave-client/src/types/multiplayer'
-import { EChatActions } from '@acid-info/webcave-client/src/shared/controls'
-import { DEFAULT_SELECTOR_WIDTH_PX } from '@acid-info/webcave-client/src'
+
+import {
+  MultiplayerClient,
+  Player,
+  Renderer,
+  HandlerByMultiplayerEvent,
+  EChatActions,
+  DEFAULT_SELECTOR_WIDTH_PX
+} from '@acid-info/webcave-client/src'
 
 const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
   const {
