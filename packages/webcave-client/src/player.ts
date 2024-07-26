@@ -93,10 +93,11 @@ class Player implements IPlayer {
         selector.style.backgroundSize = `${selectorElementWidthPx * numberOfElements}px ${selectorElementWidthPx}px`
 
         selector.onclick = () => {
-          selector.style.opacity = "1.0";
-
-          this.prevSelector.style.opacity = "";
-          this.prevSelector = selector;
+          if (this.prevSelector != selector) {
+            selector.style.opacity = "1.0";
+            this.prevSelector.style.opacity = "";
+            this.prevSelector = selector;
+          }
 
           this.buildMaterial = MATERIALS[mat];
         }
