@@ -1,6 +1,6 @@
 import React, { KeyboardEventHandler, MouseEventHandler, useEffect, useRef, useState } from 'react'
 import { WebCaveMultiplayerProps } from './WebCaveMultiplayer.types'
-import { Body, Canvas, ItemsSelectorTable, ItemsSelectorTableContainer } from '../styles/WebCave.styles'
+import { Body, Canvas, ItemsSelectorTable, ItemsSelectorTableContainer } from '../../styles/WebCave.styles'
 import {
   ChatBox,
   ChatBoxEntry,
@@ -9,7 +9,7 @@ import {
   JoinInfo,
   Nickname,
   NicknameEntry,
-} from '../styles/Inputs.styles'
+} from '../../styles/Inputs.styles'
 import { PayloadBySocketEvent } from '@acid-info/webcave-core/src'
 
 import {
@@ -20,6 +20,8 @@ import {
   EChatActions,
   DEFAULT_SELECTOR_WIDTH_PX
 } from '@acid-info/webcave-client/src'
+import { getPerspectiveValues } from '../../utils/acid'
+import TakeAcidButton from '../TakeAcidButton/TakeAcidButton'
 
 const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
   const {
@@ -27,6 +29,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     chunkSize,
     serverUrl,
     texturePack,
+    acid
   } = props;
 
   const [client, setClient] = useState<MultiplayerClient>();
@@ -69,6 +72,12 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
       }
     }
   }, [client])
+
+  useEffect(() => {
+    if (acid && renderer) {
+      renderer.setPerspective(...getPerspectiveValues(acid))
+    }
+  }, [acid, renderer])
 
   useEffect(() => {
     let lastUpdate = +new Date() / 1000.0;
@@ -172,7 +181,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     setStatusMessage("Building chunks...")
 
     renderer.setWorld(w, chunkSize)
-    renderer.setPerspective(70, 0.01, 200)
+    renderer.setPerspective(...getPerspectiveValues(acid))
     renderer.buildChunks(999)
     setRenderer(renderer)
 
@@ -235,6 +244,7 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
     >
       <canvas ref={textCanvasRef} />
       <Canvas ref={webCaveRenderSurface} isKicked={isKicked}/>
+      {isReady && <TakeAcidButton renderer={renderer} />}
       <ItemsSelectorTableContainer
         selectorWidthPx={selectorWidthPx}
         isKicked={isKicked}

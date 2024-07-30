@@ -8,7 +8,9 @@ import {
   Canvas,
   ItemsSelectorTableContainer,
   ItemsSelectorTable
-} from "../styles/WebCave.styles"
+} from "../../styles/WebCave.styles"
+import { getPerspectiveValues } from '../../utils/acid'
+import TakeAcidButton from '../TakeAcidButton/TakeAcidButton'
 
 const WebCave: React.FC<WebCaveProps> = (props) => {
   const {
@@ -20,6 +22,7 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
   } = props;
 
   const [gameState, setGameState] = useState<WebCaveGameState>()
+  const [acid, setAcid] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const textCanvasRef = useRef<HTMLCanvasElement>(null)
   const webCaveRenderSurface = useRef<HTMLCanvasElement>(null);
@@ -36,7 +39,7 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
     )
 
     renderer.setWorld(world, chunkSize)
-    renderer.setPerspective(70, 0.01, 200)
+    renderer.setPerspective(...getPerspectiveValues(acid))
 
     const player = new Player()
     player.setWorld(world)
@@ -116,6 +119,7 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
         </ItemsSelectorTable>
       </ItemsSelectorTableContainer>
       <canvas ref={textCanvasRef}/>
+      <TakeAcidButton renderer={gameState?.renderer} />
     </Body>
   )
 }

@@ -1,13 +1,13 @@
 import {
   World
-} from '@acid-info/webcave-core/src'
+} from '@acid-info/webcave-core/src/index'
 
 import {
   Renderer,
   Player
-} from '@acid-info/webcave-client/src'
+} from '@acid-info/webcave-client/src/index'
 
-import { TexturePack } from '../types/texture'
+import { TexturePack } from '../../types/texture'
 
 export type WebCaveGameState = {
   world: World
