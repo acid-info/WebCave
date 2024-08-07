@@ -17,6 +17,10 @@ class ServerWorld extends World {
     return path.join(process.cwd(), this.worldSaveDirName, this.worldSaveFileName);
   }
 
+  public getDefaultWorldFilePath() {
+    return path.join(process.cwd(), "worlds", "default.world")
+  }
+
   public prepareNewSaveDir() {
     const dir = path.join(process.cwd(), this.worldSaveDirName);
 
@@ -25,9 +29,9 @@ class ServerWorld extends World {
     }
   }
 
-  public loadFromFile() {
+  public loadFromFile(_path?: string) {
     try {
-      const path = this.getWorldFilePath();
+      const path = _path || this.getWorldFilePath();
       const data = FileUtil.readFileSync(path).toString('utf8');
 
       const [spawnX, spawnY, spawnZ] = data.split(',');

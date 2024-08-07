@@ -22,14 +22,21 @@ function initWorld() {
   if (world.loadFromFile()) {
     logger.info( "Loaded the world from file." );
   } else {
-    logger.info( "Creating a new empty world." );
+    if (Config.USE_FALLBACK_DEFAULT_WORLD) {
+      logger.info( "Creating a new world from a template of default world." );
 
-    const defaultWorldSeed = "acid-info";
-    const magnitude = 0.1;
+      world.loadFromFile(world.getDefaultWorldFilePath())
+    } else {
+      logger.info( "Creating a new empty world." );
 
-    world.createRandomisedWorld(
-      Config.WORLD_GROUNDHEIGHT, defaultWorldSeed, undefined, magnitude
-    );
+      const defaultWorldSeed = "acid-info";
+      const magnitude = 0.1;
+
+      world.createRandomisedWorld(
+        Config.WORLD_GROUNDHEIGHT, defaultWorldSeed, undefined, magnitude
+      );
+    }
+
     world.prepareNewSaveDir()
     world.saveToFile();
   }

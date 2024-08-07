@@ -14,4 +14,5 @@ export type AppConfig = {
   WORLD_FILE_NAME: string
   WORLD_FILE_FOLDER: string
   CORS_POLICY: CorsOptions
+  USE_FALLBACK_DEFAULT_WORLD: boolean
 }

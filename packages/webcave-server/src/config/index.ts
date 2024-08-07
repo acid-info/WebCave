@@ -15,7 +15,8 @@ const {
   ONE_USER_PER_IP,
   IS_BEHIND_PROXY,
   WORLD_FILE_NAME,
-  CLIENT_ORIGIN_URL
+  CLIENT_ORIGIN_URL,
+  USE_FALLBACK_DEFAULT_WORLD
 } = process.env;
 
 if (!PORT) {
@@ -54,7 +55,8 @@ const Config: AppConfig = {
   CORS_POLICY: {  credentials: true,
     origin: CLIENT_ORIGIN_URL,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE'
-  }
+  },
+  USE_FALLBACK_DEFAULT_WORLD: USE_FALLBACK_DEFAULT_WORLD === "true"
 }
 
 export default Config;
