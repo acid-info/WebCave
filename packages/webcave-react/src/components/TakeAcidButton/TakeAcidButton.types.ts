@@ -3,5 +3,5 @@ import {
 } from '@acid-info/webcave-client/src'
 
 export type TakeAcidButtonProps = {
-  renderer: Render | undefined
+  renderer: Renderer | undefined
 }
