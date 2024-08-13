@@ -1,0 +1,16 @@
+services:
+  webcave_server:
+    container_name: "server"
+    build:
+      context: ./
+      dockerfile: ./packages/webcave-server/Dockerfile
+    ports:
+      - ${PORT:-3001}:${PORT:-3001}
+    volumes:
+      - ./saved_world_data:/usr/src/app/packages/webcave-server/saved_world_data
+    environment:
+      - PORT=${PORT:-3001}
+      - CLIENT_ORIGIN_URL=${CLIENT_ORIGIN_URL}
+      - IS_BEHIND_PROXY=${IS_BEHIND_PROXY}
+    env_file:
+      - .env

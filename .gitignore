@@ -23,3 +23,5 @@ pnpm-debug.log*
 lerna-debug.log*
 
 .env
+
+saved_world_data
