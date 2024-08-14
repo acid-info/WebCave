@@ -22,5 +22,6 @@ export type WebCaveProps = {
   chunkSize: number,
   texturePack: TexturePack,
   width?: string,
-  height?: string
+  height?: string,
+  acid?: boolean
 }

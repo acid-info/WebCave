@@ -22,11 +22,11 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
     worldSeed,
     worldSize,
     chunkSize,
-    texturePack
+    texturePack,
+    acid
   } = props;
 
   const [gameState, setGameState] = useState<WebCaveGameState>()
-  const [acid, setAcid] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const textCanvasRef = useRef<HTMLCanvasElement>(null)
   const webCaveRenderSurface = useRef<HTMLCanvasElement>(null);

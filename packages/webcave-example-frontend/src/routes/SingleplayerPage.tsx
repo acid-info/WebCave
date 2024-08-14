@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { WebCave } from '@acid-info/webcave-react/src'
 import { EXAMPLE_TEXTURE_PACK } from '../texture'
 
