@@ -1,8 +1,12 @@
-import React from 'react'
+import React, {
+  useEffect,
+  MouseEventHandler,
+  useRef,
+  useState
+} from 'react'
 import { WebCaveGameState, WebCaveProps } from './WebCave.types'
 import { World } from '@acid-info/webcave-core/src/index'
 import { DEFAULT_SELECTOR_WIDTH_PX, Player, Renderer } from '@acid-info/webcave-client/src/index'
-import { MouseEventHandler, useEffect, useRef, useState } from 'react'
 import {
   Body,
   Canvas,
@@ -44,8 +48,6 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
     const player = new Player()
     player.setWorld(world)
     player.setRenderer(renderer)
-    player.setInputCanvas(containerRef.current!, webCaveRenderSurface.current!)
-    player.setMaterialSelector(materialSelectorRef.current!, selectorWidthPx)
 
     setGameState({
       world,
@@ -83,6 +85,9 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
   useEffect(() => {
     let intervalId: NodeJS.Timeout | undefined = undefined
     if (gameState) {
+      gameState.player.setInputCanvas(containerRef.current!, webCaveRenderSurface.current!)
+      gameState.player.setMaterialSelector(materialSelectorRef.current!, selectorWidthPx)
+
       intervalId = setInterval(renderWorld, 16)
     } else {
       clearInterval(intervalId)
@@ -90,6 +95,9 @@ const WebCave: React.FC<WebCaveProps> = (props) => {
 
     return () => {
       clearInterval(intervalId)
+      if (gameState && gameState.player) {
+        gameState.player.removeDocumentEventListeners()
+      }
     }
   }, [gameState])
 

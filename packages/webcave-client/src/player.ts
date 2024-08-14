@@ -64,6 +64,8 @@ class Player implements IPlayer {
   public nametag: WebGLObject;
   public nick: string;
 
+  public documentEventController: AbortController;
+
   /*
   * Assign the local player to a world.
   * */
@@ -119,17 +121,7 @@ class Player implements IPlayer {
   public setInputCanvas(containerRef: HTMLDivElement, canvasRef: HTMLCanvasElement) {
     this.canvas = canvasRef;
 
-    document.onkeydown = (e: KeyboardEvent) => {
-      if ( (e.target as Element).tagName != "INPUT" ) {
-        this.onKeyEvent( e.key, true );
-      }
-    }
-
-    document.onkeyup = (e: KeyboardEvent) => {
-      if ( (e.target as Element).tagName != "INPUT" ) {
-        this.onKeyEvent( e.key, false );
-      }
-    }
+    this.addDocumentEventListeners()
 
     this.canvas.onmousedown = (e: MouseEvent) => {
       this.onMouseEvent(
@@ -159,6 +151,35 @@ class Player implements IPlayer {
         e.button === 2
       );
       return false;
+    }
+  }
+
+  public addDocumentEventListeners() {
+    if (this.documentEventController) {
+      this.documentEventController.abort();
+    }
+    this.documentEventController = new AbortController()
+
+    document.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === ACTION_TO_KEYBOARD_KEY_MAP[EKeyboardActions.JUMP]) {
+        e.preventDefault()
+      }
+
+      if ( (e.target as Element).tagName != "INPUT" ) {
+        this.onKeyEvent( e.key, true );
+      }
+    }, { signal: this.documentEventController.signal })
+
+    document.addEventListener("keyup", (e: KeyboardEvent) => {
+      if ( (e.target as Element).tagName != "INPUT" ) {
+        this.onKeyEvent( e.key, false );
+      }
+    }, { signal: this.documentEventController.signal })
+  }
+
+  public removeDocumentEventListeners() {
+    if (this.documentEventController) {
+      this.documentEventController.abort();
     }
   }
 

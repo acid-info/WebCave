@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react'
 import { WebCave } from '@acid-info/webcave-react/src'
 import { EXAMPLE_TEXTURE_PACK } from '../texture'
 
@@ -10,8 +10,23 @@ const SingleplayerPage: React.FC = () => {
         worldSize={64}
         worldSeed="acid-info"
         texturePack={EXAMPLE_TEXTURE_PACK}
-        height={"700px"}
+        height={'700px'}
       />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   )
 }
