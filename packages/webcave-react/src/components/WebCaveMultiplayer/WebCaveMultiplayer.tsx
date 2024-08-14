@@ -99,6 +99,9 @@ const WebCaveMultiplayer: React.FC<WebCaveMultiplayerProps> = (props) => {
 
     return () => {
       clearInterval(intervalId)
+      if (renderer && renderer.world && renderer.world.localPlayer) {
+        renderer.world.localPlayer.removeDocumentEventListeners()
+      }
     }
   }, [isReady])
 

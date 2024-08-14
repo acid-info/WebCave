@@ -24,4 +24,5 @@ export interface IPlayer {
   lastUpdate: number;
   update(): void;
   getEyePos(): Vector;
+  removeDocumentEventListeners(): void;
 }

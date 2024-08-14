@@ -11,6 +11,21 @@ const MultiplayerPage: React.FC = () => {
         texturePack={EXAMPLE_TEXTURE_PACK}
         height={"800px"}
       />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   )
 }
