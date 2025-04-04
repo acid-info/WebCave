@@ -16,19 +16,6 @@
     tslib "^2.3.1"
     typescript "^5.4.5"
 
-"@acid-info/webcave-react@*":
-  version "1.0.3-alpha.0"
-  dependencies:
-    "@acid-info/webcave-client" "^1.0.2-alpha.0"
-    "@acid-info/webcave-core" "^1.0.2-alpha.0"
-    "@types/react" "^18.2.66"
-    rollup "^2.60.2"
-    rollup-plugin-typescript2 "^0.31.1"
-    socket.io-client "^4.7.5"
-    styled-components "^6.1.16"
-    tslib "^2.3.1"
-    typescript "^5.4.5"
-
 "@ampproject/remapping@^2.2.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.3.0.tgz#ed441b6fa600072520ce18b43d2c8cc8caecc7f4"
